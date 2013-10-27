@@ -1,0 +1,484 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		57F8834C181CA94400505E94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F8834B181CA94400505E94 /* Foundation.framework */; };
+		57F8834E181CA94400505E94 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F8834D181CA94400505E94 /* CoreGraphics.framework */; };
+		57F88350181CA94400505E94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F8834F181CA94400505E94 /* UIKit.framework */; };
+		57F88356181CA94400505E94 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57F88354181CA94400505E94 /* InfoPlist.strings */; };
+		57F88358181CA94400505E94 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F88357181CA94400505E94 /* main.m */; };
+		57F8835C181CA94400505E94 /* SKAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F8835B181CA94400505E94 /* SKAppDelegate.m */; };
+		57F8835F181CA94400505E94 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57F8835D181CA94400505E94 /* Main.storyboard */; };
+		57F88362181CA94400505E94 /* SKMasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F88361181CA94400505E94 /* SKMasterViewController.m */; };
+		57F88365181CA94400505E94 /* SKDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F88364181CA94400505E94 /* SKDetailViewController.m */; };
+		57F88367181CA94400505E94 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 57F88366181CA94400505E94 /* Images.xcassets */; };
+		57F8836E181CA94400505E94 /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F8836D181CA94400505E94 /* XCTest.framework */; };
+		57F8836F181CA94400505E94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F8834B181CA94400505E94 /* Foundation.framework */; };
+		57F88370181CA94400505E94 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F8834F181CA94400505E94 /* UIKit.framework */; };
+		57F88378181CA94400505E94 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 57F88376181CA94400505E94 /* InfoPlist.strings */; };
+		57F8837A181CA94400505E94 /* SKStatefulTableViewControllerDemoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 57F88379181CA94400505E94 /* SKStatefulTableViewControllerDemoTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		57F88371181CA94400505E94 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 57F88340181CA94400505E94 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 57F88347181CA94400505E94;
+			remoteInfo = SKStatefulTableViewControllerDemo;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		57F88348181CA94400505E94 /* SKStatefulTableViewControllerDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SKStatefulTableViewControllerDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		57F8834B181CA94400505E94 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		57F8834D181CA94400505E94 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		57F8834F181CA94400505E94 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		57F88353181CA94400505E94 /* SKStatefulTableViewControllerDemo-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SKStatefulTableViewControllerDemo-Info.plist"; sourceTree = "<group>"; };
+		57F88355181CA94400505E94 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		57F88357181CA94400505E94 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		57F88359181CA94400505E94 /* SKStatefulTableViewControllerDemo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "SKStatefulTableViewControllerDemo-Prefix.pch"; sourceTree = "<group>"; };
+		57F8835A181CA94400505E94 /* SKAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKAppDelegate.h; sourceTree = "<group>"; };
+		57F8835B181CA94400505E94 /* SKAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKAppDelegate.m; sourceTree = "<group>"; };
+		57F8835E181CA94400505E94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		57F88360181CA94400505E94 /* SKMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKMasterViewController.h; sourceTree = "<group>"; };
+		57F88361181CA94400505E94 /* SKMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKMasterViewController.m; sourceTree = "<group>"; };
+		57F88363181CA94400505E94 /* SKDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SKDetailViewController.h; sourceTree = "<group>"; };
+		57F88364181CA94400505E94 /* SKDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKDetailViewController.m; sourceTree = "<group>"; };
+		57F88366181CA94400505E94 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		57F8836C181CA94400505E94 /* SKStatefulTableViewControllerDemoTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SKStatefulTableViewControllerDemoTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		57F8836D181CA94400505E94 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		57F88375181CA94400505E94 /* SKStatefulTableViewControllerDemoTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "SKStatefulTableViewControllerDemoTests-Info.plist"; sourceTree = "<group>"; };
+		57F88377181CA94400505E94 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		57F88379181CA94400505E94 /* SKStatefulTableViewControllerDemoTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SKStatefulTableViewControllerDemoTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		57F88345181CA94400505E94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57F8834E181CA94400505E94 /* CoreGraphics.framework in Frameworks */,
+				57F88350181CA94400505E94 /* UIKit.framework in Frameworks */,
+				57F8834C181CA94400505E94 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57F88369181CA94400505E94 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57F8836E181CA94400505E94 /* XCTest.framework in Frameworks */,
+				57F88370181CA94400505E94 /* UIKit.framework in Frameworks */,
+				57F8836F181CA94400505E94 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		57F8833F181CA94400505E94 = {
+			isa = PBXGroup;
+			children = (
+				57F88351181CA94400505E94 /* SKStatefulTableViewControllerDemo */,
+				57F88373181CA94400505E94 /* SKStatefulTableViewControllerDemoTests */,
+				57F8834A181CA94400505E94 /* Frameworks */,
+				57F88349181CA94400505E94 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		57F88349181CA94400505E94 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				57F88348181CA94400505E94 /* SKStatefulTableViewControllerDemo.app */,
+				57F8836C181CA94400505E94 /* SKStatefulTableViewControllerDemoTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		57F8834A181CA94400505E94 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				57F8834B181CA94400505E94 /* Foundation.framework */,
+				57F8834D181CA94400505E94 /* CoreGraphics.framework */,
+				57F8834F181CA94400505E94 /* UIKit.framework */,
+				57F8836D181CA94400505E94 /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		57F88351181CA94400505E94 /* SKStatefulTableViewControllerDemo */ = {
+			isa = PBXGroup;
+			children = (
+				57F8835A181CA94400505E94 /* SKAppDelegate.h */,
+				57F8835B181CA94400505E94 /* SKAppDelegate.m */,
+				57F8835D181CA94400505E94 /* Main.storyboard */,
+				57F88360181CA94400505E94 /* SKMasterViewController.h */,
+				57F88361181CA94400505E94 /* SKMasterViewController.m */,
+				57F88363181CA94400505E94 /* SKDetailViewController.h */,
+				57F88364181CA94400505E94 /* SKDetailViewController.m */,
+				57F88366181CA94400505E94 /* Images.xcassets */,
+				57F88352181CA94400505E94 /* Supporting Files */,
+			);
+			path = SKStatefulTableViewControllerDemo;
+			sourceTree = "<group>";
+		};
+		57F88352181CA94400505E94 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				57F88353181CA94400505E94 /* SKStatefulTableViewControllerDemo-Info.plist */,
+				57F88354181CA94400505E94 /* InfoPlist.strings */,
+				57F88357181CA94400505E94 /* main.m */,
+				57F88359181CA94400505E94 /* SKStatefulTableViewControllerDemo-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		57F88373181CA94400505E94 /* SKStatefulTableViewControllerDemoTests */ = {
+			isa = PBXGroup;
+			children = (
+				57F88379181CA94400505E94 /* SKStatefulTableViewControllerDemoTests.m */,
+				57F88374181CA94400505E94 /* Supporting Files */,
+			);
+			path = SKStatefulTableViewControllerDemoTests;
+			sourceTree = "<group>";
+		};
+		57F88374181CA94400505E94 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				57F88375181CA94400505E94 /* SKStatefulTableViewControllerDemoTests-Info.plist */,
+				57F88376181CA94400505E94 /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		57F88347181CA94400505E94 /* SKStatefulTableViewControllerDemo */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57F8837D181CA94400505E94 /* Build configuration list for PBXNativeTarget "SKStatefulTableViewControllerDemo" */;
+			buildPhases = (
+				57F88344181CA94400505E94 /* Sources */,
+				57F88345181CA94400505E94 /* Frameworks */,
+				57F88346181CA94400505E94 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = SKStatefulTableViewControllerDemo;
+			productName = SKStatefulTableViewControllerDemo;
+			productReference = 57F88348181CA94400505E94 /* SKStatefulTableViewControllerDemo.app */;
+			productType = "com.apple.product-type.application";
+		};
+		57F8836B181CA94400505E94 /* SKStatefulTableViewControllerDemoTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 57F88380181CA94400505E94 /* Build configuration list for PBXNativeTarget "SKStatefulTableViewControllerDemoTests" */;
+			buildPhases = (
+				57F88368181CA94400505E94 /* Sources */,
+				57F88369181CA94400505E94 /* Frameworks */,
+				57F8836A181CA94400505E94 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				57F88372181CA94400505E94 /* PBXTargetDependency */,
+			);
+			name = SKStatefulTableViewControllerDemoTests;
+			productName = SKStatefulTableViewControllerDemoTests;
+			productReference = 57F8836C181CA94400505E94 /* SKStatefulTableViewControllerDemoTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		57F88340181CA94400505E94 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = SK;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = Shiki;
+				TargetAttributes = {
+					57F8836B181CA94400505E94 = {
+						TestTargetID = 57F88347181CA94400505E94;
+					};
+				};
+			};
+			buildConfigurationList = 57F88343181CA94400505E94 /* Build configuration list for PBXProject "SKStatefulTableViewControllerDemo" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 57F8833F181CA94400505E94;
+			productRefGroup = 57F88349181CA94400505E94 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				57F88347181CA94400505E94 /* SKStatefulTableViewControllerDemo */,
+				57F8836B181CA94400505E94 /* SKStatefulTableViewControllerDemoTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		57F88346181CA94400505E94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57F88367181CA94400505E94 /* Images.xcassets in Resources */,
+				57F88356181CA94400505E94 /* InfoPlist.strings in Resources */,
+				57F8835F181CA94400505E94 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57F8836A181CA94400505E94 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57F88378181CA94400505E94 /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		57F88344181CA94400505E94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57F8835C181CA94400505E94 /* SKAppDelegate.m in Sources */,
+				57F88362181CA94400505E94 /* SKMasterViewController.m in Sources */,
+				57F88358181CA94400505E94 /* main.m in Sources */,
+				57F88365181CA94400505E94 /* SKDetailViewController.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		57F88368181CA94400505E94 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				57F8837A181CA94400505E94 /* SKStatefulTableViewControllerDemoTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		57F88372181CA94400505E94 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 57F88347181CA94400505E94 /* SKStatefulTableViewControllerDemo */;
+			targetProxy = 57F88371181CA94400505E94 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		57F88354181CA94400505E94 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				57F88355181CA94400505E94 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		57F8835D181CA94400505E94 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				57F8835E181CA94400505E94 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		57F88376181CA94400505E94 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				57F88377181CA94400505E94 /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		57F8837B181CA94400505E94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		57F8837C181CA94400505E94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		57F8837E181CA94400505E94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SKStatefulTableViewControllerDemo/SKStatefulTableViewControllerDemo-Prefix.pch";
+				INFOPLIST_FILE = "SKStatefulTableViewControllerDemo/SKStatefulTableViewControllerDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		57F8837F181CA94400505E94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SKStatefulTableViewControllerDemo/SKStatefulTableViewControllerDemo-Prefix.pch";
+				INFOPLIST_FILE = "SKStatefulTableViewControllerDemo/SKStatefulTableViewControllerDemo-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		57F88381181CA94400505E94 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SKStatefulTableViewControllerDemo.app/SKStatefulTableViewControllerDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SKStatefulTableViewControllerDemo/SKStatefulTableViewControllerDemo-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "SKStatefulTableViewControllerDemoTests/SKStatefulTableViewControllerDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		57F88382181CA94400505E94 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/SKStatefulTableViewControllerDemo.app/SKStatefulTableViewControllerDemo";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "SKStatefulTableViewControllerDemo/SKStatefulTableViewControllerDemo-Prefix.pch";
+				INFOPLIST_FILE = "SKStatefulTableViewControllerDemoTests/SKStatefulTableViewControllerDemoTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		57F88343181CA94400505E94 /* Build configuration list for PBXProject "SKStatefulTableViewControllerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57F8837B181CA94400505E94 /* Debug */,
+				57F8837C181CA94400505E94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57F8837D181CA94400505E94 /* Build configuration list for PBXNativeTarget "SKStatefulTableViewControllerDemo" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57F8837E181CA94400505E94 /* Debug */,
+				57F8837F181CA94400505E94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		57F88380181CA94400505E94 /* Build configuration list for PBXNativeTarget "SKStatefulTableViewControllerDemoTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57F88381181CA94400505E94 /* Debug */,
+				57F88382181CA94400505E94 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 57F88340181CA94400505E94 /* Project object */;
+}
