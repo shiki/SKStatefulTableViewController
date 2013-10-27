@@ -21,14 +21,14 @@ typedef enum {
 
 @protocol SKStatefulTableViewControllerDelegate <NSObject>
 
+@optional
+
 - (void)statefulTableViewWillBeginInitialLoad:(SKStatefulTableViewController *)tableView
                                    completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion;
 - (void)statefulTableViewWillBeginLoadingFromPullToRefresh:(SKStatefulTableViewController *)tableView
                                                 completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion;
 - (void)statefulTableViewWillBeginLoadingMore:(SKStatefulTableViewController *)tableView
                                    completion:(void (^)(BOOL canLoadMore, NSError *errorOrNil))completion;
-
-@optional
 
 - (UIView *)statefulTableViewViewForInitialLoad:(SKStatefulTableViewController *)tableView;
 // TODO rename since this is reused for pull to refresh as well
@@ -37,7 +37,8 @@ typedef enum {
 
 @end
 
-@interface SKStatefulTableViewController : UIViewController
+@interface SKStatefulTableViewController : UIViewController <SKStatefulTableViewControllerDelegate,
+  UITableViewDelegate, UITableViewDataSource>
 
 @property (weak, nonatomic) id<SKStatefulTableViewControllerDelegate> delegate;
 

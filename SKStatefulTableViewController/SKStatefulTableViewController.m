@@ -24,10 +24,34 @@ typedef enum {
 
 @implementation SKStatefulTableViewController
 
+- (id)init {
+  if ((self = [super init]))
+    [self onInit];
+  return self;
+}
+
+- (id)initWithCoder:(NSCoder *)aDecoder {
+  if ((self = [super initWithCoder:aDecoder]))
+    [self onInit];
+  return self;
+}
+
+- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
+  if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
+    [self onInit];
+  return self;
+}
+
+- (void)onInit {
+  self.delegate = self;
+}
+
 - (void)viewDidLoad {
   [super viewDidLoad];
 
   UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+  tableView.delegate = self;
+  tableView.dataSource = self;
   tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight;
   [self.view addSubview:tableView];
   self.tableView = tableView;
@@ -44,13 +68,9 @@ typedef enum {
 
   UIView *staticContentView = [[UIView alloc] initWithFrame:self.view.bounds];
   staticContentView.backgroundColor = [UIColor whiteColor];
-//  staticContentView.backgroundColor = UIColor.redColor;
   staticContentView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight;
   [tableView addSubview:staticContentView];
-//  [self.view addSubview:staticContentView];
   self.staticContainerView = staticContentView;
-
-  [self triggerInitialLoad];
 }
 
 - (void)refreshControlValueChanged:(id)sender {
@@ -64,9 +84,12 @@ typedef enum {
   [self setState:SKStatefulTableViewControllerStateInitialLoading];
 
   __weak typeof(self) wSelf = self;
-  [self.delegate statefulTableViewWillBeginInitialLoad:self completion:^(BOOL tableIsEmpty, NSError *errorOrNil) {
-    [wSelf setHasFinishedInitialLoad:tableIsEmpty withError:errorOrNil];
-  }];
+  if ([self.delegate respondsToSelector:@selector(statefulTableViewWillBeginInitialLoad:completion:)]) {
+    [self.delegate statefulTableViewWillBeginInitialLoad:self completion:^(BOOL tableIsEmpty, NSError *errorOrNil) {
+      [wSelf setHasFinishedInitialLoad:tableIsEmpty withError:errorOrNil];
+    }];
+  }
+
   UIView *initialLoadView = [self viewForInitialLoad];
   [self resetStaticContentViewWithChildView:initialLoadView];
 
@@ -94,9 +117,12 @@ typedef enum {
   [self setState:SKStatefulTableViewControllerStateLoadingFromPullToRefresh];
 
   __weak typeof(self) wSelf = self;
-  [self.delegate statefulTableViewWillBeginLoadingFromPullToRefresh:self completion:^(BOOL tableIsEmpty, NSError *errorOrNil) {
-    [wSelf setHasFinishedLoadingFromPullToRefresh:tableIsEmpty withError:errorOrNil];
-  }];
+  if ([self.delegate respondsToSelector:@selector(statefulTableViewWillBeginLoadingFromPullToRefresh:completion:)]) {
+    [self.delegate statefulTableViewWillBeginLoadingFromPullToRefresh:self
+                                                           completion:^(BOOL tableIsEmpty, NSError *errorOrNil) {
+      [wSelf setHasFinishedLoadingFromPullToRefresh:tableIsEmpty withError:errorOrNil];
+    }];
+  }
 
   [self.refreshControl beginRefreshing];
 }
@@ -178,15 +204,6 @@ typedef enum {
   if (!self.staticContainerView.hidden) {
     self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
   }
-//  UIView *toShow = mode == SKStatefulTableViewControllerViewModeStatic ? self.staticContainerView : self.tableView;
-//  UIView *toHide = mode == SKStatefulTableViewControllerViewModeStatic ? self.tableView : self.staticContainerView;
-//
-//  if (toHide.hidden && !toShow.hidden) // Nothing to do
-//    return;
-//
-//  // TODO animate?
-//  toHide.hidden = YES;
-//  toShow.hidden = NO;
 }
 
 - (void)resetStaticContentViewWithChildView:(UIView *)childView {
