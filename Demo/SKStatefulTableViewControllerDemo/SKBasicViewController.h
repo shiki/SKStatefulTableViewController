@@ -11,4 +11,6 @@
 
 @interface SKBasicViewController : SKStatefulTableViewController
 
+@property (strong, nonatomic) NSMutableArray *items;
+
 @end

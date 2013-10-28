@@ -8,12 +8,6 @@
 
 #import "SKBasicViewController.h"
 
-@interface SKBasicViewController () {
-  NSMutableArray *_items;
-}
-
-@end
-
 @implementation SKBasicViewController
 
 - (void)viewDidLoad {
@@ -27,29 +21,29 @@
 - (void)statefulTableViewWillBeginInitialLoad:(SKStatefulTableViewController *)tableView
                                    completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-    [self insertNewItem:10 fromTop:NO];
-    completion(NO, nil);
+    [self addItems:10 insertFromTop:NO];
+    completion(self.items.count == 0, nil);
   });
 }
 
 - (void)statefulTableViewWillBeginLoadingFromPullToRefresh:(SKStatefulTableViewController *)tableView completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-    [self insertNewItem:5 fromTop:YES];
-    completion(NO, nil);
+    [self addItems:5 insertFromTop:YES];
+    completion(self.items.count == 0, nil);
   });
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noreuse"];
-  cell.textLabel.text = _items[(NSUInteger)indexPath.row];
+  cell.textLabel.text = self.items[(NSUInteger)indexPath.row];
   return cell;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return _items.count;
+  return self.items.count;
 }
 
-- (void)insertNewItem:(NSInteger)count fromTop:(BOOL)fromTop {
+- (void)addItems:(NSInteger)count insertFromTop:(BOOL)insertFromTop {
   if (!_items) {
     _items = [[NSMutableArray alloc] init];
   }
@@ -62,7 +56,7 @@
                                                     timeStyle:NSDateFormatterShortStyle];
     item = [NSString stringWithFormat:@"#%i %@", _items.count, item];
 
-    if (fromTop)
+    if (insertFromTop)
       [_items insertObject:item atIndex:0];
     else
       [_items addObject:item];

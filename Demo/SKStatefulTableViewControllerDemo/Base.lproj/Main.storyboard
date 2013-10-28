@@ -46,9 +46,6 @@
                                     </subviews>
                                 </tableViewCellContentView>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <connections>
-                                    <segue destination="tjf-02-eS5" kind="push" id="rTd-Lv-mPJ"/>
-                                </connections>
                             </tableViewCell>
                         </prototypes>
                         <sections/>
@@ -62,25 +59,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6Cn-md-YlS" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="459" y="64"/>
-        </scene>
-        <!--Basic View Controller-->
-        <scene sceneID="bT7-Az-x4f">
-            <objects>
-                <viewController id="tjf-02-eS5" customClass="SKBasicViewController" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="jr2-db-34f"/>
-                        <viewControllerLayoutGuide type="bottom" id="kgr-h5-ern"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="z1h-hx-Y2C">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
-                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
-                    </view>
-                    <navigationItem key="navigationItem" id="DjI-II-9e9"/>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="Hfu-Lu-UnY" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="969" y="64"/>
         </scene>
     </scenes>
     <simulatedMetricsContainer key="defaultSimulatedMetrics">
