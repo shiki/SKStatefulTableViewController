@@ -28,6 +28,8 @@
 
   UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
   self.navigationItem.rightBarButtonItem = addButton;
+
+  [self insertNewObject:nil];
 }
 
 - (void)insertNewObject:(id)sender {

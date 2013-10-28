@@ -50,10 +50,12 @@ typedef enum {
   [super viewDidLoad];
 
   UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-  tableView.delegate = self;
   tableView.dataSource = self;
+  tableView.delegate = self;
   tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight;
-  [self.view addSubview:tableView];
+  // Insert to make sure it is the first in the view heirarchy so we can benefit from the iOS7
+  // auto-setting of content insets.
+  [self.view insertSubview:tableView atIndex:0];
   self.tableView = tableView;
 
   // Add UIRefreshControl without the need for self to be a UITableViewController.
