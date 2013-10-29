@@ -14,6 +14,8 @@ typedef enum {
   SKStatefulTableViewControllerViewModeTable,
 } SKStatefulTableViewControllerViewMode;
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 @interface SKStatefulTableViewController ()
 
 @property (readwrite, strong, nonatomic) UITableView *tableView;
@@ -24,6 +26,8 @@ typedef enum {
 
 @end
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 @implementation SKStatefulTableViewController
 
 - (id)init {
@@ -78,8 +82,23 @@ typedef enum {
   self.staticContainerView = staticContentView;
 }
 
-- (void)refreshControlValueChanged:(id)sender {
-  [self triggerPullToRefresh];
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Initial Load
+
+- (void)setHasFinishedInitialLoad:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil {
+  if (self.state != SKStatefulTableViewControllerStateInitialLoading)
+    return;
+
+  if (errorOrNil || tableIsEmpty) {
+    UIView *view = [self viewForEmptyInitialLoadWithError:errorOrNil];
+    [self resetStaticContentViewWithChildView:view];
+    [self setState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError];
+    [self setLoadMoreEnabled:NO];
+  } else {
+    [self setState:SKStatefulTableViewControllerStateIdle];
+    [self setViewMode:SKStatefulTableViewControllerViewModeTable];
+    [self setLoadMoreEnabled:YES];
+  }
 }
 
 - (void)triggerInitialLoad {
@@ -99,56 +118,6 @@ typedef enum {
   [self resetStaticContentViewWithChildView:initialLoadView];
 
   [self setViewMode:SKStatefulTableViewControllerViewModeStatic];
-}
-
-- (void)setHasFinishedInitialLoad:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil {
-  if (self.state != SKStatefulTableViewControllerStateInitialLoading)
-    return;
-
-  if (errorOrNil || tableIsEmpty) {
-    UIView *view = [self viewForEmptyInitialLoadWithError:errorOrNil];
-    [self resetStaticContentViewWithChildView:view];
-    [self setState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError];
-  } else {
-    [self setState:SKStatefulTableViewControllerStateIdle];
-    [self setViewMode:SKStatefulTableViewControllerViewModeTable];
-    [self setLoadMoreEnabled:YES];
-  }
-}
-
-- (void)triggerPullToRefresh {
-  if ([self stateIsLoading])
-    return;
-
-  [self setState:SKStatefulTableViewControllerStateLoadingFromPullToRefresh];
-
-  __weak typeof(self) wSelf = self;
-  if ([self.delegate respondsToSelector:@selector(statefulTableViewWillBeginLoadingFromPullToRefresh:completion:)]) {
-    [self.delegate statefulTableViewWillBeginLoadingFromPullToRefresh:self
-                                                           completion:^(BOOL tableIsEmpty, NSError *errorOrNil) {
-      [wSelf setHasFinishedLoadingFromPullToRefresh:tableIsEmpty withError:errorOrNil];
-    }];
-  }
-
-  [self.refreshControl beginRefreshing];
-}
-
-- (void)setHasFinishedLoadingFromPullToRefresh:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil {
-  if (self.state != SKStatefulTableViewControllerStateLoadingFromPullToRefresh)
-    return;
-
-  [self.refreshControl endRefreshing];
-
-  if (errorOrNil || tableIsEmpty) {
-    UIView *view = [self viewForEmptyInitialLoadWithError:errorOrNil];
-    [self resetStaticContentViewWithChildView:view];
-    [self setState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError];
-    [self setViewMode:SKStatefulTableViewControllerViewModeStatic];
-  } else {
-    [self setState:SKStatefulTableViewControllerStateIdle];
-    [self setViewMode:SKStatefulTableViewControllerViewModeTable];
-    [self setLoadMoreEnabled:YES];
-  }
 }
 
 - (UIView *)viewForInitialLoad {
@@ -207,6 +176,49 @@ typedef enum {
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Pull To Refresh
+
+- (void)refreshControlValueChanged:(id)sender {
+  [self triggerPullToRefresh];
+}
+
+- (void)triggerPullToRefresh {
+  if ([self stateIsLoading])
+    return;
+
+  [self setState:SKStatefulTableViewControllerStateLoadingFromPullToRefresh];
+
+  __weak typeof(self) wSelf = self;
+  if ([self.delegate respondsToSelector:@selector(statefulTableViewWillBeginLoadingFromPullToRefresh:completion:)]) {
+    [self.delegate statefulTableViewWillBeginLoadingFromPullToRefresh:self
+                                                           completion:^(BOOL tableIsEmpty, NSError *errorOrNil) {
+      [wSelf setHasFinishedLoadingFromPullToRefresh:tableIsEmpty withError:errorOrNil];
+    }];
+  }
+
+  [self.refreshControl beginRefreshing];
+}
+
+- (void)setHasFinishedLoadingFromPullToRefresh:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil {
+  if (self.state != SKStatefulTableViewControllerStateLoadingFromPullToRefresh)
+    return;
+
+  [self.refreshControl endRefreshing];
+
+  if (errorOrNil || tableIsEmpty) {
+    UIView *view = [self viewForEmptyInitialLoadWithError:errorOrNil];
+    [self resetStaticContentViewWithChildView:view];
+    [self setState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError];
+    [self setViewMode:SKStatefulTableViewControllerViewModeStatic];
+    [self setLoadMoreEnabled:NO];
+  } else {
+    [self setState:SKStatefulTableViewControllerStateIdle];
+    [self setViewMode:SKStatefulTableViewControllerViewModeTable];
+    [self setLoadMoreEnabled:YES];
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Load More
 
 - (void)triggerLoadMore {
@@ -224,6 +236,8 @@ typedef enum {
 }
 
 - (void)setLoadMoreEnabled:(BOOL)enabled {
+  _loadMoreEnabled = enabled;
+
   if (enabled) {
     if (!self.tableView.tableFooterView) {
       UIView *loadMoreView = [self viewForLoadingMoreWithError:nil];
@@ -234,20 +248,18 @@ typedef enum {
   } else {
     self.tableView.tableFooterView = nil;
   }
-
-  _loadMoreEnabled = enabled;
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
-  if (self.loadMoreEnabled) {
-    [self triggerLoadMoreIfApplicable:scrollView];
-  }
+  [self triggerLoadMoreIfApplicable:scrollView];
 }
 
 - (void)triggerLoadMoreIfApplicable:(UIScrollView *)scrollView {
-  CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
-  if (scrollPosition < self.loadMoreTriggerThreshold) {
-    [self triggerLoadMore];
+  if (self.loadMoreEnabled) {
+    CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
+    if (scrollPosition < self.loadMoreTriggerThreshold) {
+      [self triggerLoadMore];
+    }
   }
 }
 

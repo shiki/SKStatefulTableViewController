@@ -19,6 +19,8 @@ typedef enum {
 
 @class SKStatefulTableViewController;
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 @protocol SKStatefulTableViewControllerDelegate <NSObject>
 
 @optional
@@ -37,6 +39,8 @@ typedef enum {
 
 @end
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 @interface SKStatefulTableViewController : UIViewController <SKStatefulTableViewControllerDelegate,
   UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 
@@ -48,8 +52,6 @@ typedef enum {
 @property (nonatomic) SKStatefulTableViewControllerState state;
 
 @property (nonatomic) CGFloat loadMoreTriggerThreshold;
-
-@property (readonly, nonatomic) BOOL hasFinishedInitialLoad;
 
 - (void)triggerInitialLoad;
 - (void)setHasFinishedInitialLoad:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil;

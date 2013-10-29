@@ -13,4 +13,6 @@
 
 @property (strong, nonatomic) NSMutableArray *items;
 
+- (void)addItems:(NSInteger)count insertFromTop:(BOOL)insertFromTop;
+
 @end
