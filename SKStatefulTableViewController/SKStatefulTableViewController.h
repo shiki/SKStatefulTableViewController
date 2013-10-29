@@ -38,7 +38,7 @@ typedef enum {
 @end
 
 @interface SKStatefulTableViewController : UIViewController <SKStatefulTableViewControllerDelegate,
-  UITableViewDelegate, UITableViewDataSource>
+  UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 
 @property (weak, nonatomic) id<SKStatefulTableViewControllerDelegate> delegate;
 
@@ -46,6 +46,8 @@ typedef enum {
 @property (readonly, strong, nonatomic) UIView *staticContainerView;
 
 @property (nonatomic) SKStatefulTableViewControllerState state;
+
+@property (nonatomic) CGFloat loadMoreTriggerThreshold;
 
 @property (readonly, nonatomic) BOOL hasFinishedInitialLoad;
 

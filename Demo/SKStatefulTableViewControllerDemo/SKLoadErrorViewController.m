@@ -30,4 +30,13 @@
   });
 }
 
+- (void)statefulTableViewWillBeginLoadingFromPullToRefresh:(SKStatefulTableViewController *)tableView completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
+  dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+    NSError *error = [NSError errorWithDomain:@"domain" code:100 userInfo:@{
+      NSLocalizedDescriptionKey: @"Error from pull-to-refresh."
+    }];
+    completion(self.items.count == 0, error);
+  });
+}
+
 @end

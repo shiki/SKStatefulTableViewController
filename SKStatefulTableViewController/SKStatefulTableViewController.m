@@ -20,6 +20,8 @@ typedef enum {
 @property (readwrite, strong, nonatomic) UIView *staticContainerView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
+@property (nonatomic) BOOL loadMoreEnabled;
+
 @end
 
 @implementation SKStatefulTableViewController
@@ -44,6 +46,7 @@ typedef enum {
 
 - (void)onInit {
   self.delegate = self;
+  self.loadMoreTriggerThreshold = 64.f;
 }
 
 - (void)viewDidLoad {
@@ -109,6 +112,7 @@ typedef enum {
   } else {
     [self setState:SKStatefulTableViewControllerStateIdle];
     [self setViewMode:SKStatefulTableViewControllerViewModeTable];
+    [self setLoadMoreEnabled:YES];
   }
 }
 
@@ -143,6 +147,7 @@ typedef enum {
   } else {
     [self setState:SKStatefulTableViewControllerStateIdle];
     [self setViewMode:SKStatefulTableViewControllerViewModeTable];
+    [self setLoadMoreEnabled:YES];
   }
 }
 
@@ -200,6 +205,84 @@ typedef enum {
     return container;
   }
 }
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Load More
+
+- (void)triggerLoadMore {
+  if ([self stateIsLoading])
+    return;
+
+  [self setState:SKStatefulTableViewControllerStateLoadingMore];
+
+  __weak typeof(self) wSelf = self;
+  if ([self.delegate respondsToSelector:@selector(statefulTableViewWillBeginLoadingMore:completion:)]) {
+    [self.delegate statefulTableViewWillBeginLoadingMore:self completion:^(BOOL canLoadMore, NSError *errorOrNil) {
+      [wSelf setHasFinishedLoadingMore:canLoadMore withError:errorOrNil];
+    }];
+  }
+}
+
+- (void)setLoadMoreEnabled:(BOOL)enabled {
+  if (enabled) {
+    if (!self.tableView.tableFooterView) {
+      UIView *loadMoreView = [self viewForLoadingMoreWithError:nil];
+      loadMoreView.backgroundColor = UIColor.greenColor;
+      self.tableView.tableFooterView = loadMoreView;
+    }
+    [self triggerLoadMoreIfApplicable:self.tableView];
+  } else {
+    self.tableView.tableFooterView = nil;
+  }
+
+  _loadMoreEnabled = enabled;
+}
+
+- (void)scrollViewDidScroll:(UIScrollView *)scrollView {
+  if (self.loadMoreEnabled) {
+    [self triggerLoadMoreIfApplicable:scrollView];
+  }
+}
+
+- (void)triggerLoadMoreIfApplicable:(UIScrollView *)scrollView {
+  CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
+  if (scrollPosition < self.loadMoreTriggerThreshold) {
+    [self triggerLoadMore];
+  }
+}
+
+- (void)setHasFinishedLoadingMore:(BOOL)canLoadMore withError:(NSError *)errorOrNil {
+  if (self.state != SKStatefulTableViewControllerStateLoadingMore)
+    return;
+
+  // TODO separate view for load-more with error
+  [self setState:SKStatefulTableViewControllerStateIdle];
+  [self setViewMode:SKStatefulTableViewControllerViewModeTable];
+  [self setLoadMoreEnabled:canLoadMore];
+}
+
+- (UIView *)viewForLoadingMoreWithError:(NSError *)error {
+  if ([self.delegate respondsToSelector:@selector(statefulTableView:viewForLoadMoreWithError:)]) {
+    return [self.delegate statefulTableView:self viewForLoadMoreWithError:error];
+  } else {
+    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f,
+      self.tableView.bounds.size.width, 44.f)];
+    UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc]
+      initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+    activityIndicatorView.frame = ({
+      CGRect f = activityIndicatorView.frame;
+      f.origin.x = container.frame.size.width * 0.5f - f.size.width * 0.5f;
+      f.origin.y = container.frame.size.height * 0.5f - f.size.height * 0.5f;
+      f;
+    });
+    [activityIndicatorView startAnimating];
+    [container addSubview:activityIndicatorView];
+    return container;
+  }
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Utils
 
 - (void)setViewMode:(SKStatefulTableViewControllerViewMode)mode {
   self.staticContainerView.hidden = mode == SKStatefulTableViewControllerViewModeTable;
