@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4C27CBD56D9137D457A1E4A0 /* SKEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C27C529FC3357F65F6A168D /* SKEmptyViewController.m */; };
 		57E5EB81181CC67A00BCA7BC /* SKStatefulTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5EB80181CC67A00BCA7BC /* SKStatefulTableViewController.m */; };
 		57E5EB84181CD24D00BCA7BC /* SKBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5EB83181CD24D00BCA7BC /* SKBasicViewController.m */; };
 		57E5EB86181D3D6900BCA7BC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57E5EB85181D3D6900BCA7BC /* CFNetwork.framework */; };
@@ -25,6 +26,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4C27C119ECCCF2A90EB9B3D3 /* SKEmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKEmptyViewController.h; sourceTree = "<group>"; };
+		4C27C529FC3357F65F6A168D /* SKEmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKEmptyViewController.m; sourceTree = "<group>"; };
 		57E5EB7F181CC67A00BCA7BC /* SKStatefulTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKStatefulTableViewController.h; sourceTree = "<group>"; };
 		57E5EB80181CC67A00BCA7BC /* SKStatefulTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKStatefulTableViewController.m; sourceTree = "<group>"; };
 		57E5EB82181CD24D00BCA7BC /* SKBasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKBasicViewController.h; sourceTree = "<group>"; };
@@ -124,6 +127,8 @@
 				57F88352181CA94400505E94 /* Supporting Files */,
 				57E5EB9A181E7EAC00BCA7BC /* SKLoadErrorViewController.h */,
 				57E5EB9B181E7EAC00BCA7BC /* SKLoadErrorViewController.m */,
+				4C27C529FC3357F65F6A168D /* SKEmptyViewController.m */,
+				4C27C119ECCCF2A90EB9B3D3 /* SKEmptyViewController.h */,
 			);
 			path = SKStatefulTableViewControllerDemo;
 			sourceTree = "<group>";
@@ -211,6 +216,7 @@
 				57F88358181CA94400505E94 /* main.m in Sources */,
 				57E5EB9C181E7EAC00BCA7BC /* SKLoadErrorViewController.m in Sources */,
 				57E5EB84181CD24D00BCA7BC /* SKBasicViewController.m in Sources */,
+				4C27CBD56D9137D457A1E4A0 /* SKEmptyViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -10,29 +10,27 @@
 
 #import "SKBasicViewController.h"
 #import "SKLoadErrorViewController.h"
+#import "SKEmptyViewController.h"
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 @interface SKMasterViewController () {
   NSMutableArray *_objects;
 }
 @end
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////////////////////
 @implementation SKMasterViewController
-
-- (void)awakeFromNib {
-  [super awakeFromNib];
-}
 
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  _objects = [NSMutableArray arrayWithObjects:@"Basic", @"Initial Error", nil];
+  _objects = [NSMutableArray arrayWithObjects:@"Basic", @"Initial Error", @"Empty", nil];
 }
 
+////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Table View
-
-- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-  return 1;
-}
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
   return _objects.count;
@@ -50,6 +48,8 @@
   UIViewController *vc = nil;
   if (indexPath.row == 1)
     vc = [[SKLoadErrorViewController alloc] init];
+  else if (indexPath.row == 2)
+    vc = [[SKEmptyViewController alloc] init];
   else
     vc = [[SKBasicViewController alloc] init];
 
