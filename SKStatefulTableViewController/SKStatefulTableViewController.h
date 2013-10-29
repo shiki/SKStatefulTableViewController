@@ -30,7 +30,7 @@ typedef enum {
 - (void)statefulTableViewWillBeginLoadingFromPullToRefresh:(SKStatefulTableViewController *)tableView
                                                 completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion;
 - (void)statefulTableViewWillBeginLoadingMore:(SKStatefulTableViewController *)tableView
-                                   completion:(void (^)(BOOL canLoadMore, NSError *errorOrNil))completion;
+                                   completion:(void (^)(BOOL canLoadMore, NSError *errorOrNil, BOOL showErrorView))completion;
 
 - (UIView *)statefulTableViewViewForInitialLoad:(SKStatefulTableViewController *)tableView;
 // TODO rename since this is reused for pull to refresh as well
@@ -52,12 +52,14 @@ typedef enum {
 @property (nonatomic) SKStatefulTableViewControllerState state;
 
 @property (nonatomic) CGFloat loadMoreTriggerThreshold;
+@property (nonatomic) BOOL canLoadMore;
+@property (strong, nonatomic) NSError *lastLoadMoreError;
 
 - (void)triggerInitialLoad;
 - (void)setHasFinishedInitialLoad:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil;
-- (void)triggerPullToRefresh;
+- (BOOL)triggerPullToRefresh;
 - (void)setHasFinishedLoadingFromPullToRefresh:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil;
 - (void)triggerLoadMore;
-- (void)setHasFinishedLoadingMore:(BOOL)canLoadMore withError:(NSError *)errorOrNil;
+- (void)setHasFinishedLoadingMore:(BOOL)canLoadMore withError:(NSError *)errorOrNil showErrorView:(BOOL)showErrorView;
 
 @end

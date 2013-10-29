@@ -22,7 +22,8 @@ typedef enum {
 @property (readwrite, strong, nonatomic) UIView *staticContainerView;
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 
-@property (nonatomic) BOOL loadMoreEnabled;
+@property (nonatomic) BOOL watchForLoadMore;
+@property (nonatomic) BOOL loadMoreViewIsErrorView;
 
 @end
 
@@ -51,6 +52,7 @@ typedef enum {
 - (void)onInit {
   self.delegate = self;
   self.loadMoreTriggerThreshold = 64.f;
+  self.canLoadMore = YES;
 }
 
 - (void)viewDidLoad {
@@ -93,11 +95,11 @@ typedef enum {
     UIView *view = [self viewForEmptyInitialLoadWithError:errorOrNil];
     [self resetStaticContentViewWithChildView:view];
     [self setState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError];
-    [self setLoadMoreEnabled:NO];
+    [self setWatchForLoadMoreIfApplicable:NO];
   } else {
     [self setState:SKStatefulTableViewControllerStateIdle];
     [self setViewMode:SKStatefulTableViewControllerViewModeTable];
-    [self setLoadMoreEnabled:YES];
+    [self setWatchForLoadMoreIfApplicable:YES];
   }
 }
 
@@ -179,12 +181,14 @@ typedef enum {
 #pragma mark - Pull To Refresh
 
 - (void)refreshControlValueChanged:(id)sender {
-  [self triggerPullToRefresh];
+  if (![self triggerPullToRefresh]) {
+    [self.refreshControl endRefreshing];
+  }
 }
 
-- (void)triggerPullToRefresh {
+- (BOOL)triggerPullToRefresh {
   if ([self stateIsLoading])
-    return;
+    return NO;
 
   [self setState:SKStatefulTableViewControllerStateLoadingFromPullToRefresh];
 
@@ -197,6 +201,7 @@ typedef enum {
   }
 
   [self.refreshControl beginRefreshing];
+  return YES;
 }
 
 - (void)setHasFinishedLoadingFromPullToRefresh:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil {
@@ -210,11 +215,11 @@ typedef enum {
     [self resetStaticContentViewWithChildView:view];
     [self setState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError];
     [self setViewMode:SKStatefulTableViewControllerViewModeStatic];
-    [self setLoadMoreEnabled:NO];
+    [self setWatchForLoadMoreIfApplicable:NO];
   } else {
     [self setState:SKStatefulTableViewControllerStateIdle];
     [self setViewMode:SKStatefulTableViewControllerViewModeTable];
-    [self setLoadMoreEnabled:YES];
+    [self setWatchForLoadMoreIfApplicable:YES];
   }
 }
 
@@ -225,29 +230,30 @@ typedef enum {
   if ([self stateIsLoading])
     return;
 
+  self.loadMoreViewIsErrorView = NO;
+  self.lastLoadMoreError = nil;
+  [self updateLoadMoreView];
+
   [self setState:SKStatefulTableViewControllerStateLoadingMore];
 
   __weak typeof(self) wSelf = self;
   if ([self.delegate respondsToSelector:@selector(statefulTableViewWillBeginLoadingMore:completion:)]) {
-    [self.delegate statefulTableViewWillBeginLoadingMore:self completion:^(BOOL canLoadMore, NSError *errorOrNil) {
-      [wSelf setHasFinishedLoadingMore:canLoadMore withError:errorOrNil];
+    [self.delegate statefulTableViewWillBeginLoadingMore:self completion:^(BOOL canLoadMore,
+      NSError *errorOrNil, BOOL showErrorView) {
+
+      [wSelf setHasFinishedLoadingMore:canLoadMore withError:errorOrNil showErrorView:showErrorView];
     }];
   }
 }
 
-- (void)setLoadMoreEnabled:(BOOL)enabled {
-  _loadMoreEnabled = enabled;
+- (void)setWatchForLoadMoreIfApplicable:(BOOL)watch {
+  // We will only watch if -canLoadMore is enabled
+  if (watch && !self.canLoadMore)
+    watch = NO;
 
-  if (enabled) {
-    if (!self.tableView.tableFooterView) {
-      UIView *loadMoreView = [self viewForLoadingMoreWithError:nil];
-      loadMoreView.backgroundColor = UIColor.greenColor;
-      self.tableView.tableFooterView = loadMoreView;
-    }
-    [self triggerLoadMoreIfApplicable:self.tableView];
-  } else {
-    self.tableView.tableFooterView = nil;
-  }
+  self.watchForLoadMore = watch;
+  [self updateLoadMoreView];
+  [self triggerLoadMoreIfApplicable:self.tableView];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView {
@@ -255,22 +261,38 @@ typedef enum {
 }
 
 - (void)triggerLoadMoreIfApplicable:(UIScrollView *)scrollView {
-  if (self.loadMoreEnabled) {
-    CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
+  if (self.watchForLoadMore && !self.loadMoreViewIsErrorView) {
+    CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height
+      - scrollView.contentOffset.y;
     if (scrollPosition < self.loadMoreTriggerThreshold) {
       [self triggerLoadMore];
     }
   }
 }
 
-- (void)setHasFinishedLoadingMore:(BOOL)canLoadMore withError:(NSError *)errorOrNil {
+- (void)setHasFinishedLoadingMore:(BOOL)canLoadMore withError:(NSError *)errorOrNil
+                    showErrorView:(BOOL)showErrorView {
   if (self.state != SKStatefulTableViewControllerStateLoadingMore)
     return;
 
-  // TODO separate view for load-more with error
+  self.canLoadMore = canLoadMore;
+  self.loadMoreViewIsErrorView = errorOrNil && showErrorView;
+  self.lastLoadMoreError = errorOrNil;
+
   [self setState:SKStatefulTableViewControllerStateIdle];
   [self setViewMode:SKStatefulTableViewControllerViewModeTable];
-  [self setLoadMoreEnabled:canLoadMore];
+
+  [self setWatchForLoadMoreIfApplicable:canLoadMore];
+}
+
+- (void)updateLoadMoreView {
+  if (self.watchForLoadMore) {
+    UIView *loadMoreView = [self viewForLoadingMoreWithError:self.loadMoreViewIsErrorView ? self.lastLoadMoreError : nil];
+    loadMoreView.backgroundColor = self.lastLoadMoreError ? [UIColor.redColor colorWithAlphaComponent:0.5f] : UIColor.greenColor;
+    self.tableView.tableFooterView = loadMoreView;
+  } else {
+    self.tableView.tableFooterView = nil;
+  }
 }
 
 - (UIView *)viewForLoadingMoreWithError:(NSError *)error {
@@ -279,16 +301,41 @@ typedef enum {
   } else {
     UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f,
       self.tableView.bounds.size.width, 44.f)];
-    UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc]
-      initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
-    activityIndicatorView.frame = ({
-      CGRect f = activityIndicatorView.frame;
-      f.origin.x = container.frame.size.width * 0.5f - f.size.width * 0.5f;
-      f.origin.y = container.frame.size.height * 0.5f - f.size.height * 0.5f;
-      f;
-    });
-    [activityIndicatorView startAnimating];
-    [container addSubview:activityIndicatorView];
+    if (error) {
+      UILabel *label = [[UILabel alloc] init];
+      label.text = error.localizedDescription;
+      label.font = [label.font fontWithSize:12.f];
+      label.frame = ({
+        CGRect f = label.frame;
+        f.size.height = container.bounds.size.height;
+        f.origin.x = 10.f;
+        f.size.width = container.bounds.size.width - 140.f;
+        f;
+      });
+      [container addSubview:label];
+
+      UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
+      [button setTitle:@"Try Again" forState:UIControlStateNormal];
+      [button addTarget:self action:@selector(triggerLoadMore) forControlEvents:UIControlEventTouchUpInside];
+      button.frame = ({
+        CGRect f = CGRectMake(0.f, 0.f, 130.f, container.bounds.size.height);
+        f.origin.x = container.bounds.size.width - f.size.width - 5.f;
+        f.origin.y = 0.f;
+        f;
+      });
+      [container addSubview:button];
+    } else {
+      UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc]
+        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+      activityIndicatorView.frame = ({
+        CGRect f = activityIndicatorView.frame;
+        f.origin.x = container.frame.size.width * 0.5f - f.size.width * 0.5f;
+        f.origin.y = container.frame.size.height * 0.5f - f.size.height * 0.5f;
+        f;
+      });
+      [activityIndicatorView startAnimating];
+      [container addSubview:activityIndicatorView];
+    }
     return container;
   }
 }
@@ -312,6 +359,17 @@ typedef enum {
   return self.state == SKStatefulTableViewControllerStateInitialLoading
     | self.state == SKStatefulTableViewControllerStateLoadingFromPullToRefresh
     | self.state == SKStatefulTableViewControllerStateLoadingMore;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Table
+
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+  return 0;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  return nil;
 }
 
 @end

@@ -11,6 +11,7 @@
 #import "SKBasicViewController.h"
 #import "SKLoadErrorViewController.h"
 #import "SKEmptyViewController.h"
+#import "SKLoadMoreErrorViewController.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -26,7 +27,8 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  _objects = [NSMutableArray arrayWithObjects:@"Basic", @"Initial Error", @"Empty", nil];
+  _objects = [NSMutableArray arrayWithObjects:@"Basic", @"Initial Error", @"Empty",
+      @"Load More Error", nil];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -50,6 +52,8 @@
     vc = [[SKLoadErrorViewController alloc] init];
   else if (indexPath.row == 2)
     vc = [[SKEmptyViewController alloc] init];
+  else if (indexPath.row == 3)
+    vc = [[SKLoadMoreErrorViewController alloc] init];
   else
     vc = [[SKBasicViewController alloc] init];
 
