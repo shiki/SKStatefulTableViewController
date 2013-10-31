@@ -84,12 +84,12 @@ typedef enum {
   self.staticContainerView = staticContentView;
 }
 
-- (void)setState:(SKStatefulTableViewControllerState)state {
-  [self setState:state updateViewMode:YES];
+- (void)setStatefulState:(SKStatefulTableViewControllerState)state {
+  [self setStatefulState:state updateViewMode:YES];
 }
 
-- (void)setState:(SKStatefulTableViewControllerState)state updateViewMode:(BOOL)updateViewMode {
-  _state = state;
+- (void)setStatefulState:(SKStatefulTableViewControllerState)state updateViewMode:(BOOL)updateViewMode {
+  _statefulState = state;
 
   if (updateViewMode) {
     SKStatefulTableViewControllerViewMode viewMode;
@@ -117,7 +117,7 @@ typedef enum {
   UIView *initialLoadView = [self viewForInitialLoad];
   [self resetStaticContentViewWithChildView:initialLoadView];
 
-  [self setState:SKStatefulTableViewControllerStateInitialLoading];
+  [self setStatefulState:SKStatefulTableViewControllerStateInitialLoading];
 
   __weak typeof(self) wSelf = self;
   if ([self.delegate respondsToSelector:@selector(statefulTableViewWillBeginInitialLoad:completion:)]) {
@@ -128,16 +128,16 @@ typedef enum {
 }
 
 - (void)setHasFinishedInitialLoad:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil {
-  if (self.state != SKStatefulTableViewControllerStateInitialLoading)
+  if (self.statefulState != SKStatefulTableViewControllerStateInitialLoading)
     return;
 
   if (errorOrNil || tableIsEmpty) {
     UIView *view = [self viewForEmptyInitialLoadWithError:errorOrNil];
     [self resetStaticContentViewWithChildView:view];
-    [self setState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError];
+    [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError];
     [self setWatchForLoadMoreIfApplicable:NO];
   } else {
-    [self setState:SKStatefulTableViewControllerStateIdle];
+    [self setStatefulState:SKStatefulTableViewControllerStateIdle];
     [self setWatchForLoadMoreIfApplicable:YES];
   }
 }
@@ -211,7 +211,7 @@ typedef enum {
     return NO;
 
   // We don't want to change the view mode since pulling may come from the static view mode as well.
-  [self setState:SKStatefulTableViewControllerStateLoadingFromPullToRefresh updateViewMode:NO];
+  [self setStatefulState:SKStatefulTableViewControllerStateLoadingFromPullToRefresh updateViewMode:NO];
 
   __weak typeof(self) wSelf = self;
   if ([self.delegate respondsToSelector:@selector(statefulTableViewWillBeginLoadingFromPullToRefresh:completion:)]) {
@@ -226,7 +226,7 @@ typedef enum {
 }
 
 - (void)setHasFinishedLoadingFromPullToRefresh:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil {
-  if (self.state != SKStatefulTableViewControllerStateLoadingFromPullToRefresh)
+  if (self.statefulState != SKStatefulTableViewControllerStateLoadingFromPullToRefresh)
     return;
 
   [self.refreshControl endRefreshing];
@@ -234,10 +234,10 @@ typedef enum {
   if (errorOrNil || tableIsEmpty) {
     UIView *view = [self viewForEmptyInitialLoadWithError:errorOrNil];
     [self resetStaticContentViewWithChildView:view];
-    [self setState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError];
+    [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError];
     [self setWatchForLoadMoreIfApplicable:NO];
   } else {
-    [self setState:SKStatefulTableViewControllerStateIdle];
+    [self setStatefulState:SKStatefulTableViewControllerStateIdle];
     [self setWatchForLoadMoreIfApplicable:YES];
   }
 }
@@ -253,7 +253,7 @@ typedef enum {
   self.lastLoadMoreError = nil;
   [self updateLoadMoreView];
 
-  [self setState:SKStatefulTableViewControllerStateLoadingMore];
+  [self setStatefulState:SKStatefulTableViewControllerStateLoadingMore];
 
   __weak typeof(self) wSelf = self;
   if ([self.delegate respondsToSelector:@selector(statefulTableViewWillBeginLoadingMore:completion:)]) {
@@ -291,14 +291,14 @@ typedef enum {
 
 - (void)setHasFinishedLoadingMore:(BOOL)canLoadMore withError:(NSError *)errorOrNil
                     showErrorView:(BOOL)showErrorView {
-  if (self.state != SKStatefulTableViewControllerStateLoadingMore)
+  if (self.statefulState != SKStatefulTableViewControllerStateLoadingMore)
     return;
 
   self.canLoadMore = canLoadMore;
   self.loadMoreViewIsErrorView = errorOrNil && showErrorView;
   self.lastLoadMoreError = errorOrNil;
 
-  [self setState:SKStatefulTableViewControllerStateIdle];
+  [self setStatefulState:SKStatefulTableViewControllerStateIdle];
   [self setWatchForLoadMoreIfApplicable:canLoadMore];
 }
 
@@ -373,9 +373,9 @@ typedef enum {
 }
 
 - (BOOL)stateIsLoading {
-  return self.state == SKStatefulTableViewControllerStateInitialLoading
-    | self.state == SKStatefulTableViewControllerStateLoadingFromPullToRefresh
-    | self.state == SKStatefulTableViewControllerStateLoadingMore;
+  return self.statefulState == SKStatefulTableViewControllerStateInitialLoading
+    | self.statefulState == SKStatefulTableViewControllerStateLoadingFromPullToRefresh
+    | self.statefulState == SKStatefulTableViewControllerStateLoadingMore;
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

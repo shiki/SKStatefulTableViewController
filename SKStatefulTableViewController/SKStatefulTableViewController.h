@@ -49,7 +49,7 @@ typedef enum {
 @property (readonly, strong, nonatomic) UITableView *tableView;
 @property (readonly, strong, nonatomic) UIView *staticContainerView;
 
-@property (nonatomic) SKStatefulTableViewControllerState state;
+@property (nonatomic) SKStatefulTableViewControllerState statefulState;
 
 @property (nonatomic) CGFloat loadMoreTriggerThreshold;
 @property (nonatomic) BOOL canLoadMore;

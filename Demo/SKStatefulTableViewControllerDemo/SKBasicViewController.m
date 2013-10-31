@@ -35,10 +35,10 @@
 }
 
 - (void)statefulTableViewWillBeginLoadingMore:(SKStatefulTableViewController *)tableView
-                                   completion:(void (^)(BOOL canLoadMore, NSError *errorOrNil))completion {
+                                   completion:(void (^)(BOOL canLoadMore, NSError *errorOrNil, BOOL showErrorView))completion {
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
     [self addItems:10 insertFromTop:NO];
-    completion(self.items.count < 100, nil);
+    completion(self.items.count < 100, nil, NO);
   });
 }
 
