@@ -85,11 +85,20 @@ typedef enum {
 }
 
 - (void)setStatefulState:(SKStatefulTableViewControllerState)state {
-  [self setStatefulState:state updateViewMode:YES];
+  [self setStatefulState:state updateViewMode:YES error:nil];
 }
 
-- (void)setStatefulState:(SKStatefulTableViewControllerState)state updateViewMode:(BOOL)updateViewMode {
+- (void)setStatefulState:(SKStatefulTableViewControllerState)state updateViewMode:(BOOL)updateViewMode
+                   error:(NSError *)error {
   _statefulState = state;
+
+  if (state == SKStatefulTableViewControllerStateInitialLoading) {
+    UIView *initialLoadView = [self viewForInitialLoad];
+    [self resetStaticContentViewWithChildView:initialLoadView];
+  } else if (state == SKStatefulTableViewControllerStateEmptyOrInitialLoadError) {
+    UIView *view = [self viewForEmptyInitialLoadWithError:error];
+    [self resetStaticContentViewWithChildView:view];
+  }
 
   if (updateViewMode) {
     SKStatefulTableViewControllerViewMode viewMode;
@@ -114,9 +123,6 @@ typedef enum {
   if ([self stateIsLoading])
     return;
 
-  UIView *initialLoadView = [self viewForInitialLoad];
-  [self resetStaticContentViewWithChildView:initialLoadView];
-
   [self setStatefulState:SKStatefulTableViewControllerStateInitialLoading];
 
   __weak typeof(self) wSelf = self;
@@ -132,9 +138,8 @@ typedef enum {
     return;
 
   if (errorOrNil || tableIsEmpty) {
-    UIView *view = [self viewForEmptyInitialLoadWithError:errorOrNil];
-    [self resetStaticContentViewWithChildView:view];
-    [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError];
+    [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError
+            updateViewMode:YES error:errorOrNil];
     [self setWatchForLoadMoreIfApplicable:NO];
   } else {
     [self setStatefulState:SKStatefulTableViewControllerStateIdle];
@@ -211,7 +216,7 @@ typedef enum {
     return NO;
 
   // We don't want to change the view mode since pulling may come from the static view mode as well.
-  [self setStatefulState:SKStatefulTableViewControllerStateLoadingFromPullToRefresh updateViewMode:NO];
+  [self setStatefulState:SKStatefulTableViewControllerStateLoadingFromPullToRefresh updateViewMode:NO error:nil];
 
   __weak typeof(self) wSelf = self;
   if ([self.delegate respondsToSelector:@selector(statefulTableViewWillBeginLoadingFromPullToRefresh:completion:)]) {
@@ -232,9 +237,8 @@ typedef enum {
   [self.refreshControl endRefreshing];
 
   if (errorOrNil || tableIsEmpty) {
-    UIView *view = [self viewForEmptyInitialLoadWithError:errorOrNil];
-    [self resetStaticContentViewWithChildView:view];
-    [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError];
+    [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError updateViewMode:YES
+                     error:errorOrNil];
     [self setWatchForLoadMoreIfApplicable:NO];
   } else {
     [self setStatefulState:SKStatefulTableViewControllerStateIdle];
