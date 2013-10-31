@@ -55,6 +55,8 @@ typedef enum {
 @property (nonatomic) BOOL canLoadMore;
 @property (strong, nonatomic) NSError *lastLoadMoreError;
 
+- (void)onInit;
+
 - (void)triggerInitialLoad;
 - (void)setHasFinishedInitialLoad:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil;
 - (BOOL)triggerPullToRefresh;
