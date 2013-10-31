@@ -75,6 +75,8 @@ typedef enum {
   [refreshControl addTarget:self action:@selector(refreshControlValueChanged:)
            forControlEvents:UIControlEventValueChanged];
   tableViewController.refreshControl = refreshControl;
+  // Move to the bottom so it doesn't cover the cell views (UITableViewWrapperView)
+  [refreshControl.superview insertSubview:refreshControl atIndex:0];
   self.refreshControl = refreshControl;
 
   UIView *staticContentView = [[UIView alloc] initWithFrame:self.view.bounds];
