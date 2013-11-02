@@ -50,7 +50,7 @@ typedef enum {
 }
 
 - (void)onInit {
-  self.delegate = self;
+  self.statefulDelegate = self;
   self.loadMoreTriggerThreshold = 64.f;
   self.canLoadMore = YES;
 }
@@ -128,8 +128,8 @@ typedef enum {
   [self setStatefulState:SKStatefulTableViewControllerStateInitialLoading];
 
   __weak typeof(self) wSelf = self;
-  if ([self.delegate respondsToSelector:@selector(statefulTableViewWillBeginInitialLoad:completion:)]) {
-    [self.delegate statefulTableViewWillBeginInitialLoad:self completion:^(BOOL tableIsEmpty, NSError *errorOrNil) {
+  if ([self.statefulDelegate respondsToSelector:@selector(statefulTableViewWillBeginInitialLoad:completion:)]) {
+    [self.statefulDelegate statefulTableViewWillBeginInitialLoad:self completion:^(BOOL tableIsEmpty, NSError *errorOrNil) {
       [wSelf setHasFinishedInitialLoad:tableIsEmpty withError:errorOrNil];
     }];
   }
@@ -150,8 +150,8 @@ typedef enum {
 }
 
 - (UIView *)viewForInitialLoad {
-  if ([self.delegate respondsToSelector:@selector(statefulTableViewViewForInitialLoad:)]) {
-    return [self.delegate statefulTableViewViewForInitialLoad:self];
+  if ([self.statefulDelegate respondsToSelector:@selector(statefulTableViewViewForInitialLoad:)]) {
+    return [self.statefulDelegate statefulTableViewViewForInitialLoad:self];
   } else {
     UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc]
       initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
@@ -167,8 +167,8 @@ typedef enum {
 }
 
 - (UIView *)viewForEmptyInitialLoadWithError:(NSError *)errorOrNil {
-  if ([self.delegate respondsToSelector:@selector(statefulTableView:viewForEmptyInitialLoadWithError:)]) {
-    return [self.delegate statefulTableView:self viewForEmptyInitialLoadWithError:errorOrNil];
+  if ([self.statefulDelegate respondsToSelector:@selector(statefulTableView:viewForEmptyInitialLoadWithError:)]) {
+    return [self.statefulDelegate statefulTableView:self viewForEmptyInitialLoadWithError:errorOrNil];
   } else {
     UIView *container = [[UIView alloc] initWithFrame:({
       CGRect f = CGRectMake(0.f, 0.f, self.staticContainerView.bounds.size.width, 120.f);
@@ -221,9 +221,9 @@ typedef enum {
   [self setStatefulState:SKStatefulTableViewControllerStateLoadingFromPullToRefresh updateViewMode:NO error:nil];
 
   __weak typeof(self) wSelf = self;
-  if ([self.delegate respondsToSelector:@selector(statefulTableViewWillBeginLoadingFromPullToRefresh:completion:)]) {
-    [self.delegate statefulTableViewWillBeginLoadingFromPullToRefresh:self
-                                                           completion:^(BOOL tableIsEmpty, NSError *errorOrNil) {
+  if ([self.statefulDelegate respondsToSelector:@selector(statefulTableViewWillBeginLoadingFromPullToRefresh:completion:)]) {
+    [self.statefulDelegate statefulTableViewWillBeginLoadingFromPullToRefresh:self
+                                                                   completion:^(BOOL tableIsEmpty, NSError *errorOrNil) {
       [wSelf setHasFinishedLoadingFromPullToRefresh:tableIsEmpty withError:errorOrNil];
     }];
   }
@@ -262,8 +262,8 @@ typedef enum {
   [self setStatefulState:SKStatefulTableViewControllerStateLoadingMore];
 
   __weak typeof(self) wSelf = self;
-  if ([self.delegate respondsToSelector:@selector(statefulTableViewWillBeginLoadingMore:completion:)]) {
-    [self.delegate statefulTableViewWillBeginLoadingMore:self completion:^(BOOL canLoadMore,
+  if ([self.statefulDelegate respondsToSelector:@selector(statefulTableViewWillBeginLoadingMore:completion:)]) {
+    [self.statefulDelegate statefulTableViewWillBeginLoadingMore:self completion:^(BOOL canLoadMore,
       NSError *errorOrNil, BOOL showErrorView) {
 
       [wSelf setHasFinishedLoadingMore:canLoadMore withError:errorOrNil showErrorView:showErrorView];
@@ -319,8 +319,8 @@ typedef enum {
 }
 
 - (UIView *)viewForLoadingMoreWithError:(NSError *)error {
-  if ([self.delegate respondsToSelector:@selector(statefulTableView:viewForLoadMoreWithError:)]) {
-    return [self.delegate statefulTableView:self viewForLoadMoreWithError:error];
+  if ([self.statefulDelegate respondsToSelector:@selector(statefulTableView:viewForLoadMoreWithError:)]) {
+    return [self.statefulDelegate statefulTableView:self viewForLoadMoreWithError:error];
   } else {
     UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f,
       self.tableView.bounds.size.width, 44.f)];

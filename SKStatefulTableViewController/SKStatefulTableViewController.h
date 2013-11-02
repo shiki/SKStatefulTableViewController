@@ -44,7 +44,7 @@ typedef enum {
 @interface SKStatefulTableViewController : UIViewController <SKStatefulTableViewControllerDelegate,
   UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
 
-@property (weak, nonatomic) id<SKStatefulTableViewControllerDelegate> delegate;
+@property (weak, nonatomic) id<SKStatefulTableViewControllerDelegate> statefulDelegate;
 
 @property (readonly, strong, nonatomic) UITableView *tableView;
 @property (readonly, strong, nonatomic) UIView *staticContainerView;
