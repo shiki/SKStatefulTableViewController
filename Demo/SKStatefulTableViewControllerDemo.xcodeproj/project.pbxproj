@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4C27C04369ECB7D82D8FE360 /* SKLoadMoreErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C27CB8B490378F685699D80 /* SKLoadMoreErrorViewController.m */; };
 		4C27CBD56D9137D457A1E4A0 /* SKEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C27C529FC3357F65F6A168D /* SKEmptyViewController.m */; };
+		4C27CF3EEAB38D883A9231A2 /* SKNoPullToRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C27C6710410532FC317C16D /* SKNoPullToRefreshViewController.m */; };
 		57E5EB81181CC67A00BCA7BC /* SKStatefulTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5EB80181CC67A00BCA7BC /* SKStatefulTableViewController.m */; };
 		57E5EB84181CD24D00BCA7BC /* SKBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5EB83181CD24D00BCA7BC /* SKBasicViewController.m */; };
 		57E5EB86181D3D6900BCA7BC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57E5EB85181D3D6900BCA7BC /* CFNetwork.framework */; };
@@ -29,7 +30,9 @@
 /* Begin PBXFileReference section */
 		4C27C119ECCCF2A90EB9B3D3 /* SKEmptyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKEmptyViewController.h; sourceTree = "<group>"; };
 		4C27C529FC3357F65F6A168D /* SKEmptyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKEmptyViewController.m; sourceTree = "<group>"; };
+		4C27C6710410532FC317C16D /* SKNoPullToRefreshViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKNoPullToRefreshViewController.m; sourceTree = "<group>"; };
 		4C27C7C7545E499417641FE6 /* SKLoadMoreErrorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKLoadMoreErrorViewController.h; sourceTree = "<group>"; };
+		4C27CAAFC526773B43E5213E /* SKNoPullToRefreshViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKNoPullToRefreshViewController.h; sourceTree = "<group>"; };
 		4C27CB8B490378F685699D80 /* SKLoadMoreErrorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKLoadMoreErrorViewController.m; sourceTree = "<group>"; };
 		57E5EB7F181CC67A00BCA7BC /* SKStatefulTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKStatefulTableViewController.h; sourceTree = "<group>"; };
 		57E5EB80181CC67A00BCA7BC /* SKStatefulTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKStatefulTableViewController.m; sourceTree = "<group>"; };
@@ -134,6 +137,8 @@
 				4C27C119ECCCF2A90EB9B3D3 /* SKEmptyViewController.h */,
 				4C27CB8B490378F685699D80 /* SKLoadMoreErrorViewController.m */,
 				4C27C7C7545E499417641FE6 /* SKLoadMoreErrorViewController.h */,
+				4C27C6710410532FC317C16D /* SKNoPullToRefreshViewController.m */,
+				4C27CAAFC526773B43E5213E /* SKNoPullToRefreshViewController.h */,
 			);
 			path = SKStatefulTableViewControllerDemo;
 			sourceTree = "<group>";
@@ -223,6 +228,7 @@
 				57E5EB84181CD24D00BCA7BC /* SKBasicViewController.m in Sources */,
 				4C27CBD56D9137D457A1E4A0 /* SKEmptyViewController.m in Sources */,
 				4C27C04369ECB7D82D8FE360 /* SKLoadMoreErrorViewController.m in Sources */,
+				4C27CF3EEAB38D883A9231A2 /* SKNoPullToRefreshViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

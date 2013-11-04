@@ -12,6 +12,7 @@
 #import "SKLoadErrorViewController.h"
 #import "SKEmptyViewController.h"
 #import "SKLoadMoreErrorViewController.h"
+#import "SKNoPullToRefreshViewController.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,7 +29,7 @@
   [super viewDidLoad];
 
   _objects = [NSMutableArray arrayWithObjects:@"Basic", @"Initial Error", @"Empty",
-      @"Load More Error", nil];
+      @"Load More Error", @"No Pull To Refresh", nil];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -54,6 +55,8 @@
     vc = [[SKEmptyViewController alloc] init];
   else if (indexPath.row == 3)
     vc = [[SKLoadMoreErrorViewController alloc] init];
+  else if (indexPath.row == 4)
+    vc = [[SKNoPullToRefreshViewController alloc] init];
   else
     vc = [[SKBasicViewController alloc] init];
 

@@ -20,6 +20,8 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
 
+  self.title = @"Load More Error";
+
   self.retriesCount = 0;
 }
 

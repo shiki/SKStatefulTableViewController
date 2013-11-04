@@ -67,17 +67,19 @@ typedef enum {
   [self.view insertSubview:tableView atIndex:0];
   self.tableView = tableView;
 
-  // Add UIRefreshControl without the need for self to be a UITableViewController.
-  // http://stackoverflow.com/questions/12497940/uirefreshcontrol-without-uitableviewcontroller
-  UITableViewController *tableViewController = [[UITableViewController alloc] init];
-  tableViewController.tableView = tableView;
-  UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-  [refreshControl addTarget:self action:@selector(refreshControlValueChanged:)
-           forControlEvents:UIControlEventValueChanged];
-  tableViewController.refreshControl = refreshControl;
-  // Move to the bottom so it doesn't cover the cell views (UITableViewWrapperView)
-  [refreshControl.superview insertSubview:refreshControl atIndex:0];
-  self.refreshControl = refreshControl;
+  if (self.canPullToRefresh) {
+    // Add UIRefreshControl without the need for self to be a UITableViewController.
+    // http://stackoverflow.com/questions/12497940/uirefreshcontrol-without-uitableviewcontroller
+    UITableViewController *tableViewController = [[UITableViewController alloc] init];
+    tableViewController.tableView = tableView;
+    UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
+    [refreshControl addTarget:self action:@selector(refreshControlValueChanged:)
+             forControlEvents:UIControlEventValueChanged];
+    tableViewController.refreshControl = refreshControl;
+    // Move to the bottom so it doesn't cover the cell views (UITableViewWrapperView)
+    [refreshControl.superview insertSubview:refreshControl atIndex:0];
+    self.refreshControl = refreshControl;
+  }
 
   UIView *staticContentView = [[UIView alloc] initWithFrame:self.view.bounds];
   staticContentView.backgroundColor = [UIColor whiteColor];
@@ -311,7 +313,7 @@ typedef enum {
 - (void)updateLoadMoreView {
   if (self.watchForLoadMore) {
     UIView *loadMoreView = [self viewForLoadingMoreWithError:self.loadMoreViewIsErrorView ? self.lastLoadMoreError : nil];
-    loadMoreView.backgroundColor = self.lastLoadMoreError ? [UIColor.redColor colorWithAlphaComponent:0.5f] : UIColor.greenColor;
+    //loadMoreView.backgroundColor = self.lastLoadMoreError ? [UIColor.redColor colorWithAlphaComponent:0.5f] : UIColor.greenColor;
     self.tableView.tableFooterView = loadMoreView;
   } else {
     self.tableView.tableFooterView = nil;
