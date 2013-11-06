@@ -53,6 +53,7 @@ typedef enum {
   self.statefulDelegate = self;
   self.loadMoreTriggerThreshold = 64.f;
   self.canLoadMore = YES;
+  self.canPullToRefresh = YES;
 }
 
 - (void)viewDidLoad {
