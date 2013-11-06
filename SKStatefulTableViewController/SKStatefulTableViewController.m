@@ -56,6 +56,11 @@ typedef enum {
   self.canPullToRefresh = YES;
 }
 
+- (void)dealloc {
+  [NSNotificationCenter.defaultCenter
+    removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
 - (void)viewDidLoad {
   [super viewDidLoad];
 
@@ -87,12 +92,19 @@ typedef enum {
   staticContentView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight;
   [tableView addSubview:staticContentView];
   self.staticContainerView = staticContentView;
+
+  [NSNotificationCenter.defaultCenter
+    addObserver:self selector:@selector(applicationDidBecomeActive:)
+           name:UIApplicationDidBecomeActiveNotification object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  if (self.statefulState != SKStatefulTableViewControllerStateLoadingFromPullToRefresh)
-    [self.refreshControl endRefreshing];
+  [self fixRefreshControlState];
+}
+
+- (void)applicationDidBecomeActive:(NSNotification *)notification {
+  [self fixRefreshControlState];
 }
 
 - (void)setStatefulState:(SKStatefulTableViewControllerState)state {
@@ -391,6 +403,11 @@ typedef enum {
   return self.statefulState == SKStatefulTableViewControllerStateInitialLoading
     | self.statefulState == SKStatefulTableViewControllerStateLoadingFromPullToRefresh
     | self.statefulState == SKStatefulTableViewControllerStateLoadingMore;
+}
+
+- (void)fixRefreshControlState {
+  if (self.statefulState != SKStatefulTableViewControllerStateLoadingFromPullToRefresh)
+    [self.refreshControl endRefreshing];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
