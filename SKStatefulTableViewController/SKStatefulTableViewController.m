@@ -20,7 +20,7 @@ typedef enum {
 
 @property (readwrite, strong, nonatomic) UITableView *tableView;
 @property (readwrite, strong, nonatomic) UIView *staticContainerView;
-@property (strong, nonatomic) UIRefreshControl *refreshControl;
+@property (strong, readwrite, nonatomic) UIRefreshControl *refreshControl;
 
 @property (nonatomic) BOOL watchForLoadMore;
 @property (nonatomic) BOOL loadMoreViewIsErrorView;
@@ -87,6 +87,12 @@ typedef enum {
   staticContentView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight;
   [tableView addSubview:staticContentView];
   self.staticContainerView = staticContentView;
+}
+
+- (void)viewWillAppear:(BOOL)animated {
+  [super viewWillAppear:animated];
+  if (self.statefulState != SKStatefulTableViewControllerStateLoadingFromPullToRefresh)
+    [self.refreshControl endRefreshing];
 }
 
 - (void)setStatefulState:(SKStatefulTableViewControllerState)state {

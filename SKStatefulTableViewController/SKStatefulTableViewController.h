@@ -54,6 +54,7 @@ typedef enum {
 // Enable/disable pull-to-refresh. This will only work if this is set before -viewDidLoad gets
 // launched.
 @property (nonatomic) BOOL canPullToRefresh;
+@property (strong, readonly, nonatomic) UIRefreshControl *refreshControl;
 
 @property (nonatomic) CGFloat loadMoreTriggerThreshold;
 @property (nonatomic) BOOL canLoadMore;
