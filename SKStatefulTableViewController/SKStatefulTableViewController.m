@@ -127,6 +127,12 @@ typedef enum {
     [self resetStaticContentViewWithChildView:view];
   }
 
+  if (state == SKStatefulTableViewControllerStateIdle) {
+    [self setWatchForLoadMoreIfApplicable:YES];
+  } else if (state == SKStatefulTableViewControllerStateEmptyOrInitialLoadError) {
+    [self setWatchForLoadMoreIfApplicable:NO];
+  }
+
   if (updateViewMode) {
     SKStatefulTableViewControllerViewMode viewMode;
     switch (state) {
@@ -167,10 +173,8 @@ typedef enum {
   if (errorOrNil || tableIsEmpty) {
     [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError
             updateViewMode:YES error:errorOrNil];
-    [self setWatchForLoadMoreIfApplicable:NO];
   } else {
     [self setStatefulState:SKStatefulTableViewControllerStateIdle];
-    [self setWatchForLoadMoreIfApplicable:YES];
   }
 }
 
@@ -266,10 +270,8 @@ typedef enum {
   if (errorOrNil || tableIsEmpty) {
     [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError updateViewMode:YES
                      error:errorOrNil];
-    [self setWatchForLoadMoreIfApplicable:NO];
   } else {
     [self setStatefulState:SKStatefulTableViewControllerStateIdle];
-    [self setWatchForLoadMoreIfApplicable:YES];
   }
 }
 
@@ -330,7 +332,6 @@ typedef enum {
   self.lastLoadMoreError = errorOrNil;
 
   [self setStatefulState:SKStatefulTableViewControllerStateIdle];
-  [self setWatchForLoadMoreIfApplicable:canLoadMore];
 }
 
 - (void)updateLoadMoreView {
