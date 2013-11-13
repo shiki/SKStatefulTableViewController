@@ -62,6 +62,8 @@ typedef enum {
 
 - (void)onInit;
 
+- (void)setStatefulState:(SKStatefulTableViewControllerState)state withError:(NSError *)error;
+
 - (void)triggerInitialLoad;
 - (void)setHasFinishedInitialLoad:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil;
 - (BOOL)triggerPullToRefresh;

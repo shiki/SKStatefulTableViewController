@@ -111,6 +111,10 @@ typedef enum {
   [self setStatefulState:state updateViewMode:YES error:nil];
 }
 
+- (void)setStatefulState:(SKStatefulTableViewControllerState)state withError:(NSError *)error {
+  [self setStatefulState:state updateViewMode:YES error:error];
+}
+
 - (void)setStatefulState:(SKStatefulTableViewControllerState)state updateViewMode:(BOOL)updateViewMode
                    error:(NSError *)error {
   _statefulState = state;
