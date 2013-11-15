@@ -170,7 +170,8 @@ typedef enum {
   if (self.statefulState != SKStatefulTableViewControllerStateInitialLoading)
     return;
 
-  if (errorOrNil || tableIsEmpty) {
+  // We will only show the error page if the table is empty or there is an error and the table is empty.
+  if (tableIsEmpty) {
     [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError
             updateViewMode:YES error:errorOrNil];
   } else {
@@ -267,7 +268,8 @@ typedef enum {
 
   [self.refreshControl endRefreshing];
 
-  if (errorOrNil || tableIsEmpty) {
+  // We will only show the error page if the table is empty or there is an error and the table is empty.
+  if (tableIsEmpty) {
     [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError updateViewMode:YES
                      error:errorOrNil];
   } else {
