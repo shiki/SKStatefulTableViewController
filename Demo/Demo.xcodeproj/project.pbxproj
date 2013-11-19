@@ -15,7 +15,6 @@
 		57E5EB84181CD24D00BCA7BC /* DMBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5EB83181CD24D00BCA7BC /* DMBasicViewController.m */; };
 		57E5EB86181D3D6900BCA7BC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57E5EB85181D3D6900BCA7BC /* CFNetwork.framework */; };
 		57E5EB88181D3D6F00BCA7BC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57E5EB87181D3D6F00BCA7BC /* QuartzCore.framework */; };
-		57E5EB8A181D3DE500BCA7BC /* Reveal.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57E5EB89181D3DE500BCA7BC /* Reveal.framework */; };
 		57E5EB9C181E7EAC00BCA7BC /* DMLoadErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5EB9B181E7EAC00BCA7BC /* DMLoadErrorViewController.m */; };
 		57F8834C181CA94400505E94 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F8834B181CA94400505E94 /* Foundation.framework */; };
 		57F8834E181CA94400505E94 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57F8834D181CA94400505E94 /* CoreGraphics.framework */; };
@@ -40,7 +39,6 @@
 		57E5EB83181CD24D00BCA7BC /* DMBasicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMBasicViewController.m; sourceTree = "<group>"; };
 		57E5EB85181D3D6900BCA7BC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		57E5EB87181D3D6F00BCA7BC /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
-		57E5EB89181D3DE500BCA7BC /* Reveal.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Reveal.framework; path = "../../../../../../../Applications/Reveal.app/Contents/SharedSupport/iOS-Libraries/Reveal.framework"; sourceTree = "<group>"; };
 		57E5EB9A181E7EAC00BCA7BC /* DMLoadErrorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMLoadErrorViewController.h; sourceTree = "<group>"; };
 		57E5EB9B181E7EAC00BCA7BC /* DMLoadErrorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMLoadErrorViewController.m; sourceTree = "<group>"; };
 		57F88348181CA94400505E94 /* SKTVC Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SKTVC Demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,7 +66,6 @@
 				57E5EB88181D3D6F00BCA7BC /* QuartzCore.framework in Frameworks */,
 				57E5EB86181D3D6900BCA7BC /* CFNetwork.framework in Frameworks */,
 				57F8834E181CA94400505E94 /* CoreGraphics.framework in Frameworks */,
-				57E5EB8A181D3DE500BCA7BC /* Reveal.framework in Frameworks */,
 				57F88350181CA94400505E94 /* UIKit.framework in Frameworks */,
 				57F8834C181CA94400505E94 /* Foundation.framework in Frameworks */,
 			);
@@ -108,7 +105,6 @@
 		57F8834A181CA94400505E94 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				57E5EB89181D3DE500BCA7BC /* Reveal.framework */,
 				57E5EB87181D3D6F00BCA7BC /* QuartzCore.framework */,
 				57E5EB85181D3D6900BCA7BC /* CFNetwork.framework */,
 				57F8834B181CA94400505E94 /* Foundation.framework */,
