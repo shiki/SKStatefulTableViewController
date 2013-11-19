@@ -1,5 +1,5 @@
 //
-//  SKLoadMoreErrorViewController
+//  DMLoadMoreErrorViewController
 //  SKStatefulTableViewControllerDemo
 //
 //  Created by Shiki on 10/29/13.
@@ -7,15 +7,15 @@
 //
 
 
-#import "SKLoadMoreErrorViewController.h"
+#import "DMLoadMoreErrorViewController.h"
 
-@interface SKLoadMoreErrorViewController ()
+@interface DMLoadMoreErrorViewController ()
 
 @property (nonatomic) NSInteger retriesCount;
 
 @end
 
-@implementation SKLoadMoreErrorViewController
+@implementation DMLoadMoreErrorViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];

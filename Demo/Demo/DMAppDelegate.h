@@ -1,5 +1,5 @@
 //
-//  SKAppDelegate.h
+//  DMAppDelegate.h
 //  SKStatefulTableViewControllerDemo
 //
 //  Created by Shiki on 10/27/13.
@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface SKAppDelegate : UIResponder <UIApplicationDelegate>
+@interface DMAppDelegate : UIResponder <UIApplicationDelegate>
 
 @property (strong, nonatomic) UIWindow *window;
 

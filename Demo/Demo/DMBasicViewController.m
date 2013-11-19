@@ -1,14 +1,14 @@
 //
-//  SKBasicViewController.m
+//  DMBasicViewController.m
 //  SKStatefulTableViewControllerDemo
 //
 //  Created by Shiki on 10/27/13.
 //  Copyright (c) 2013 Shiki. All rights reserved.
 //
 
-#import "SKBasicViewController.h"
+#import "DMBasicViewController.h"
 
-@implementation SKBasicViewController
+@implementation DMBasicViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];

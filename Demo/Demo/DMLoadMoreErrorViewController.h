@@ -1,5 +1,5 @@
 //
-//  SKEmptyViewController
+//  DMLoadMoreErrorViewController
 //  SKStatefulTableViewControllerDemo
 //
 //  Created by Shiki on 10/29/13.
@@ -8,8 +8,8 @@
 
 
 #import <Foundation/Foundation.h>
-#import "SKBasicViewController.h"
+#import "DMBasicViewController.h"
 
-@interface SKEmptyViewController : SKBasicViewController
+@interface DMLoadMoreErrorViewController : DMBasicViewController
 
 @end

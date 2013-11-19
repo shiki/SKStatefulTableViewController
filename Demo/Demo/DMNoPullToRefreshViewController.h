@@ -1,5 +1,5 @@
 //
-//  SKNoPullToRefreshViewController
+//  DMNoPullToRefreshViewController
 //  SKStatefulTableViewControllerDemo
 //
 //  Created by Shiki on 11/4/13.
@@ -8,9 +8,9 @@
 
 
 #import <Foundation/Foundation.h>
-#import "SKBasicViewController.h"
+#import "DMBasicViewController.h"
 
-@interface SKNoPullToRefreshViewController : SKBasicViewController
+@interface DMNoPullToRefreshViewController : DMBasicViewController
 
 
 

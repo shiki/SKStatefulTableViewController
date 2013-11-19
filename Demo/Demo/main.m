@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-#import "SKAppDelegate.h"
+#import "DMAppDelegate.h"
 
 int main(int argc, char * argv[])
 {
   @autoreleasepool {
-      return UIApplicationMain(argc, argv, nil, NSStringFromClass([SKAppDelegate class]));
+      return UIApplicationMain(argc, argv, nil, NSStringFromClass([DMAppDelegate class]));
   }
 }

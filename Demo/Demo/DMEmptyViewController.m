@@ -1,5 +1,5 @@
 //
-//  SKEmptyViewController
+//  DMEmptyViewController
 //  SKStatefulTableViewControllerDemo
 //
 //  Created by Shiki on 10/29/13.
@@ -7,15 +7,15 @@
 //
 
 
-#import "SKEmptyViewController.h"
+#import "DMEmptyViewController.h"
 
-@interface SKEmptyViewController ()
+@interface DMEmptyViewController ()
 
 @property (nonatomic) NSInteger retriesCount;
 
 @end
 
-@implementation SKEmptyViewController
+@implementation DMEmptyViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];

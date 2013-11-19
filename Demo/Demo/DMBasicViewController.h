@@ -1,5 +1,5 @@
 //
-//  SKBasicViewController.h
+//  DMBasicViewController.h
 //  SKStatefulTableViewControllerDemo
 //
 //  Created by Shiki on 10/27/13.
@@ -9,7 +9,7 @@
 #import "SKStatefulTableViewController.h"
 #import "SKStatefulTableViewController.h"
 
-@interface SKBasicViewController : SKStatefulTableViewController
+@interface DMBasicViewController : SKStatefulTableViewController
 
 @property (strong, nonatomic) NSMutableArray *items;
 

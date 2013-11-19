@@ -1,20 +1,20 @@
 //
-//  SKLoadErrorViewController.m
+//  DMLoadErrorViewController.m
 //  SKStatefulTableViewControllerDemo
 //
 //  Created by Shiki on 10/28/13.
 //  Copyright (c) 2013 Shiki. All rights reserved.
 //
 
-#import "SKLoadErrorViewController.h"
+#import "DMLoadErrorViewController.h"
 
-@interface SKLoadErrorViewController ()
+@interface DMLoadErrorViewController ()
 
 @property (nonatomic) NSInteger retriesCount;
 
 @end
 
-@implementation SKLoadErrorViewController
+@implementation DMLoadErrorViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];

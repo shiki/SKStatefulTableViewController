@@ -1,14 +1,14 @@
 //
-//  SKAppDelegate.m
+//  DMAppDelegate.m
 //  SKStatefulTableViewControllerDemo
 //
 //  Created by Shiki on 10/27/13.
 //  Copyright (c) 2013 Shiki. All rights reserved.
 //
 
-#import "SKAppDelegate.h"
+#import "DMAppDelegate.h"
 
-@implementation SKAppDelegate
+@implementation DMAppDelegate
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
   // Override point for customization after application launch.

@@ -1,29 +1,29 @@
 //
-//  SKMasterViewController.m
+//  DMMasterViewController.m
 //  SKStatefulTableViewControllerDemo
 //
 //  Created by Shiki on 10/27/13.
 //  Copyright (c) 2013 Shiki. All rights reserved.
 //
 
-#import "SKMasterViewController.h"
+#import "DMMasterViewController.h"
 
-#import "SKBasicViewController.h"
-#import "SKLoadErrorViewController.h"
-#import "SKEmptyViewController.h"
-#import "SKLoadMoreErrorViewController.h"
-#import "SKNoPullToRefreshViewController.h"
+#import "DMBasicViewController.h"
+#import "DMLoadErrorViewController.h"
+#import "DMEmptyViewController.h"
+#import "DMLoadMoreErrorViewController.h"
+#import "DMNoPullToRefreshViewController.h"
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-@interface SKMasterViewController () {
+@interface DMMasterViewController () {
   NSMutableArray *_objects;
 }
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-@implementation SKMasterViewController
+@implementation DMMasterViewController
 
 - (void)viewDidLoad {
   [super viewDidLoad];
@@ -50,15 +50,15 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
   UIViewController *vc = nil;
   if (indexPath.row == 1)
-    vc = [[SKLoadErrorViewController alloc] init];
+    vc = [[DMLoadErrorViewController alloc] init];
   else if (indexPath.row == 2)
-    vc = [[SKEmptyViewController alloc] init];
+    vc = [[DMEmptyViewController alloc] init];
   else if (indexPath.row == 3)
-    vc = [[SKLoadMoreErrorViewController alloc] init];
+    vc = [[DMLoadMoreErrorViewController alloc] init];
   else if (indexPath.row == 4)
-    vc = [[SKNoPullToRefreshViewController alloc] init];
+    vc = [[DMNoPullToRefreshViewController alloc] init];
   else
-    vc = [[SKBasicViewController alloc] init];
+    vc = [[DMBasicViewController alloc] init];
 
   [self.navigationController pushViewController:vc animated:YES];
 }
