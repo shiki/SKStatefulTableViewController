@@ -152,9 +152,9 @@ typedef enum {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Initial Load
 
-- (void)triggerInitialLoad {
+- (BOOL)triggerInitialLoad {
   if ([self stateIsLoading])
-    return;
+    return NO;
 
   [self setStatefulState:SKStatefulTableViewControllerStateInitialLoading];
 
@@ -164,6 +164,8 @@ typedef enum {
       [wSelf setHasFinishedInitialLoad:tableIsEmpty withError:errorOrNil];
     }];
   }
+
+  return YES;
 }
 
 - (void)setHasFinishedInitialLoad:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil {
