@@ -26,7 +26,7 @@ typedef enum {
 @property (nonatomic) BOOL loadMoreViewIsErrorView;
 
 /**
- Used for restoring the original separator style when it's set to "none" if the 
+ Used for restoring the original separator style when it's set to "none" if the
  static container view is shown.
  */
 @property (nonatomic) UITableViewCellSeparatorStyle lastSeparatorStyle;
@@ -352,10 +352,9 @@ typedef enum {
 - (void)updateLoadMoreView {
   if (self.watchForLoadMore) {
     UIView *loadMoreView = [self viewForLoadingMoreWithError:self.loadMoreViewIsErrorView ? self.lastLoadMoreError : nil];
-    //loadMoreView.backgroundColor = self.lastLoadMoreError ? [UIColor.redColor colorWithAlphaComponent:0.5f] : UIColor.greenColor;
     self.tableView.tableFooterView = loadMoreView;
   } else {
-    self.tableView.tableFooterView = nil;
+    self.tableView.tableFooterView = [[UIView alloc] init];
   }
 }
 
