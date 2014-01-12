@@ -64,7 +64,9 @@ typedef enum {
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  UITableView *tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+  UITableView *tableView = self.tableView;
+  if (!tableView)
+    tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
   tableView.dataSource = self;
   tableView.delegate = self;
   tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight;
