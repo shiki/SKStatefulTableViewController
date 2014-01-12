@@ -25,6 +25,12 @@ typedef enum {
 @property (nonatomic) BOOL watchForLoadMore;
 @property (nonatomic) BOOL loadMoreViewIsErrorView;
 
+/**
+ Used for restoring the original separator style when it's set to "none" if the 
+ static container view is shown.
+ */
+@property (nonatomic) UITableViewCellSeparatorStyle lastSeparatorStyle;
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -75,6 +81,8 @@ typedef enum {
   [self.view insertSubview:tableView atIndex:0];
   self.tableView = tableView;
 
+  self.lastSeparatorStyle = self.tableView.separatorStyle;
+
   if (self.canPullToRefresh) {
     // Add UIRefreshControl without the need for self to be a UITableViewController.
     // http://stackoverflow.com/questions/12497940/uirefreshcontrol-without-uitableviewcontroller
@@ -90,6 +98,7 @@ typedef enum {
   }
 
   UIView *staticContentView = [[UIView alloc] initWithFrame:self.view.bounds];
+  staticContentView.hidden = YES;
   staticContentView.backgroundColor = [UIColor whiteColor];
   staticContentView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight;
   [tableView addSubview:staticContentView];
@@ -399,9 +408,16 @@ typedef enum {
 #pragma mark - Utils
 
 - (void)setViewMode:(SKStatefulTableViewControllerViewMode)mode {
-  self.staticContainerView.hidden = mode == SKStatefulTableViewControllerViewModeTable;
-  if (!self.staticContainerView.hidden) {
-    self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+  BOOL hidden = mode == SKStatefulTableViewControllerViewModeTable;
+  if (self.staticContainerView.hidden != hidden) {
+    self.staticContainerView.hidden = hidden;
+
+    if (self.staticContainerView.hidden) {
+      self.tableView.separatorStyle = self.lastSeparatorStyle;
+    } else {
+      self.lastSeparatorStyle = self.tableView.separatorStyle;
+      self.tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    }
   }
 }
 
