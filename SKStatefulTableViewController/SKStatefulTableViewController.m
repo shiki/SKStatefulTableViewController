@@ -71,11 +71,13 @@ typedef enum {
   [super viewDidLoad];
 
   UITableView *tableView = self.tableView;
-  if (!tableView)
+  if (!tableView) {
     tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
+    tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight;
+  }
   tableView.dataSource = self;
   tableView.delegate = self;
-  tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight;
+
   // Insert to make sure it is the first in the view heirarchy so we can benefit from the iOS7
   // auto-setting of content insets.
   [self.view insertSubview:tableView atIndex:0];
