@@ -104,10 +104,15 @@ typedef enum {
     self.refreshControl = refreshControl;
   }
 
-  UIView *staticContentView = [[UIView alloc] initWithFrame:self.view.bounds];
+  UIView *staticContentView = [[UIView alloc] initWithFrame:self.tableView.bounds];
   staticContentView.hidden = YES;
   staticContentView.backgroundColor = [UIColor whiteColor];
-  staticContentView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleHeight;
+  staticContentView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
+    | UIViewAutoresizingFlexibleLeftMargin
+    | UIViewAutoresizingFlexibleWidth
+    | UIViewAutoresizingFlexibleRightMargin
+    | UIViewAutoresizingFlexibleBottomMargin
+    | UIViewAutoresizingFlexibleHeight;
   [tableView addSubview:staticContentView];
   self.staticContainerView = staticContentView;
 
