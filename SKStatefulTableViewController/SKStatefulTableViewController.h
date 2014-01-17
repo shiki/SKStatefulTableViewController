@@ -71,4 +71,10 @@ typedef enum {
 - (void)triggerLoadMore;
 - (void)setHasFinishedLoadingMore:(BOOL)canLoadMore withError:(NSError *)errorOrNil showErrorView:(BOOL)showErrorView;
 
+/**
+ Reset the status of `-refreshControl` based on the current state. Subclasses may override this if
+ they're using a custom refresh control.
+ */
+- (void)fixRefreshControlState;
+
 @end
