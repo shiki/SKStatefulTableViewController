@@ -72,6 +72,13 @@ typedef enum {
 - (void)setHasFinishedLoadingMore:(BOOL)canLoadMore withError:(NSError *)errorOrNil showErrorView:(BOOL)showErrorView;
 
 /**
+ A convenience method for resetting the statefulState if self is currently in
+ StatefulTableViewControllerIdle or SKStatefulTableViewControllerStateEmptyOrInitialLoadError
+ and the table data source has changed without going through pull-to-refresh or initial-load.
+ */
+- (void)updateIdleOrEmptyOrInitialLoadState:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil;
+
+/**
  Reset the status of `-refreshControl` based on the current state. Subclasses may override this if
  they're using a custom refresh control.
  */

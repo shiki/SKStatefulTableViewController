@@ -418,6 +418,20 @@ typedef enum {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Utils
 
+- (void)updateIdleOrEmptyOrInitialLoadState:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil {
+  if (self.statefulState != SKStatefulTableViewControllerStateIdle
+    && self.statefulState != SKStatefulTableViewControllerStateEmptyOrInitialLoadError) {
+    return;
+  }
+
+  // We will only show the error page if the table is empty or there is an error and the table is empty.
+  if (tableIsEmpty) {
+    [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError
+            updateViewMode:YES error:errorOrNil];
+  } else {
+    [self setStatefulState:SKStatefulTableViewControllerStateIdle];
+  }
+}
 - (void)setViewMode:(SKStatefulTableViewControllerViewMode)mode {
   BOOL hidden = mode == SKStatefulTableViewControllerViewModeTable;
   if (self.staticContainerView.hidden != hidden) {
