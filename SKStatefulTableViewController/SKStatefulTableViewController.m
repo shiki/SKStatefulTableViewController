@@ -273,8 +273,11 @@ typedef enum {
 #pragma mark - Pull To Refresh
 
 - (void)refreshControlValueChanged:(id)sender {
-  if (![self triggerPullToRefresh]) {
-    [self.refreshControl endRefreshing];
+  if (self.statefulState != SKStatefulTableViewControllerStateLoadingFromPullToRefresh
+      && !self.stateIsInitialLoading) {
+    if (![self triggerPullToRefresh]) {
+      [self.refreshControl endRefreshing];
+    }
   }
 }
 
@@ -463,9 +466,14 @@ typedef enum {
 
 - (BOOL)stateIsLoading {
   return self.statefulState == SKStatefulTableViewControllerStateInitialLoading
-    | self.statefulState == SKStatefulTableViewControllerStateInitialLoadingTableView
-    | self.statefulState == SKStatefulTableViewControllerStateLoadingFromPullToRefresh
-    | self.statefulState == SKStatefulTableViewControllerStateLoadingMore;
+    || self.statefulState == SKStatefulTableViewControllerStateInitialLoadingTableView
+    || self.statefulState == SKStatefulTableViewControllerStateLoadingFromPullToRefresh
+    || self.statefulState == SKStatefulTableViewControllerStateLoadingMore;
+}
+
+- (BOOL)stateIsInitialLoading {
+  return self.statefulState == SKStatefulTableViewControllerStateInitialLoading
+    || self.statefulState == SKStatefulTableViewControllerStateInitialLoadingTableView;
 }
 
 - (void)fixRefreshControlState {

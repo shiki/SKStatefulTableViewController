@@ -87,5 +87,6 @@ typedef enum {
 - (void)fixRefreshControlState;
 
 - (BOOL)stateIsLoading;
+- (BOOL)stateIsInitialLoading;
 
 @end

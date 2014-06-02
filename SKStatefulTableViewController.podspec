@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name    = 'SKStatefulTableViewController'
-  s.version = '0.0.9'
+  s.version = '0.0.10'
   s.summary = ''
   s.author = {
     'Shiki' => 'bj@basanes.net'
