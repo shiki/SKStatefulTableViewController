@@ -163,6 +163,7 @@ typedef enum {
       case SKStatefulTableViewControllerStateEmptyOrInitialLoadError:
         viewMode = SKStatefulTableViewControllerViewModeStatic;
         break;
+      case SKStatefulTableViewControllerStateInitialLoadingTableView:
       default:
         viewMode = SKStatefulTableViewControllerViewModeTable;
         break;
@@ -176,10 +177,17 @@ typedef enum {
 #pragma mark - Initial Load
 
 - (BOOL)triggerInitialLoad {
+  return [self triggerInitialLoadShowingTableView:NO];
+}
+
+- (BOOL)triggerInitialLoadShowingTableView:(BOOL)showTableView {
   if ([self stateIsLoading])
     return NO;
 
-  [self setStatefulState:SKStatefulTableViewControllerStateInitialLoading];
+  if (showTableView)
+    [self setStatefulState:SKStatefulTableViewControllerStateInitialLoadingTableView];
+  else
+    [self setStatefulState:SKStatefulTableViewControllerStateInitialLoading];
 
   __weak typeof(self) wSelf = self;
   if ([self.statefulDelegate respondsToSelector:@selector(statefulTableViewWillBeginInitialLoad:completion:)]) {
@@ -192,8 +200,10 @@ typedef enum {
 }
 
 - (void)setHasFinishedInitialLoad:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil {
-  if (self.statefulState != SKStatefulTableViewControllerStateInitialLoading)
+  if (self.statefulState != SKStatefulTableViewControllerStateInitialLoading
+      && self.statefulState != SKStatefulTableViewControllerStateInitialLoadingTableView) {
     return;
+  }
 
   // We will only show the error page if the table is empty or there is an error and the table is empty.
   if (tableIsEmpty) {
@@ -453,6 +463,7 @@ typedef enum {
 
 - (BOOL)stateIsLoading {
   return self.statefulState == SKStatefulTableViewControllerStateInitialLoading
+    | self.statefulState == SKStatefulTableViewControllerStateInitialLoadingTableView
     | self.statefulState == SKStatefulTableViewControllerStateLoadingFromPullToRefresh
     | self.statefulState == SKStatefulTableViewControllerStateLoadingMore;
 }

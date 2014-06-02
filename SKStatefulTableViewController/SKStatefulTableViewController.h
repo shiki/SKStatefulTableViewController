@@ -12,6 +12,7 @@
 typedef enum {
   SKStatefulTableViewControllerStateIdle = 0,
   SKStatefulTableViewControllerStateInitialLoading,
+  SKStatefulTableViewControllerStateInitialLoadingTableView,
   SKStatefulTableViewControllerStateEmptyOrInitialLoadError,
   SKStatefulTableViewControllerStateLoadingFromPullToRefresh,
   SKStatefulTableViewControllerStateLoadingMore
@@ -65,6 +66,7 @@ typedef enum {
 - (void)setStatefulState:(SKStatefulTableViewControllerState)state withError:(NSError *)error;
 
 - (BOOL)triggerInitialLoad;
+- (BOOL)triggerInitialLoadShowingTableView:(BOOL)showTableView;
 - (void)setHasFinishedInitialLoad:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil;
 - (BOOL)triggerPullToRefresh;
 - (void)setHasFinishedLoadingFromPullToRefresh:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil;
@@ -83,5 +85,7 @@ typedef enum {
  they're using a custom refresh control.
  */
 - (void)fixRefreshControlState;
+
+- (BOOL)stateIsLoading;
 
 @end
