@@ -37,21 +37,17 @@ typedef enum {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 @implementation SKStatefulTableViewController
 
-- (id)init {
-  if ((self = [super init]))
-    [self onInit];
-  return self;
-}
-
 - (id)initWithCoder:(NSCoder *)aDecoder {
-  if ((self = [super initWithCoder:aDecoder]))
+  if ((self = [super initWithCoder:aDecoder])) {
     [self onInit];
+  }
   return self;
 }
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil {
-  if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil]))
+  if ((self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])) {
     [self onInit];
+  }
   return self;
 }
 

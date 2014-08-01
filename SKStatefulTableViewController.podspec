@@ -1,13 +1,13 @@
 Pod::Spec.new do |s|
   s.name    = 'SKStatefulTableViewController'
-  s.version = '0.0.10'
+  s.version = '0.0.11'
   s.summary = ''
   s.author = {
     'Shiki' => 'bj@basanes.net'
   }
   s.source = {
     :git => 'https://github.com/shiki/SKStatefulTableViewController.git',
-    :tag => '0.0.2'
+    :tag => '0.0.11'
   }
   s.source_files = 'SKStatefulTableViewController/*.{h,m}'
   s.requires_arc = true
