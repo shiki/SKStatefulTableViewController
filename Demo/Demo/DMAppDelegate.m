@@ -8,11 +8,18 @@
 
 #import "DMAppDelegate.h"
 
+#import "DMMasterViewController.h"
+
 @implementation DMAppDelegate
 
 - (BOOL)application:(UIApplication *)application
     didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-  // Override point for customization after application launch.
+
+  DMMasterViewController *vc = [DMMasterViewController.alloc init];
+  UINavigationController *nc = [UINavigationController.alloc initWithRootViewController:vc];
+
+  self.window.rootViewController = nc;
+
   return YES;
 }
 

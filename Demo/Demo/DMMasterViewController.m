@@ -16,9 +16,10 @@
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-@interface DMMasterViewController () {
-  NSMutableArray *_objects;
-}
+@interface DMMasterViewController ()
+
+@property (strong, nonatomic) NSMutableArray *objects;
+
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -28,23 +29,27 @@
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  _objects = [NSMutableArray arrayWithObjects:@"Basic", @"Initial Error", @"Empty",
-                                              @"Load More Error", @"No Pull To Refresh", nil];
+  self.objects = [NSMutableArray arrayWithObjects:@"Basic", @"Initial Error", @"Empty",
+                                                  @"Load More Error", @"No Pull To Refresh", nil];
+
+  self.title = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+  [self.tableView registerClass:UITableViewCell.class forCellReuseIdentifier:@"Cell"];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 #pragma mark - Table View
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-  return _objects.count;
+  return self.objects.count;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   UITableViewCell *cell =
       [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+  cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
 
-  NSString *object = _objects[(NSUInteger)indexPath.row];
+  NSString *object = self.objects[(NSUInteger)indexPath.row];
   cell.textLabel.text = object;
   return cell;
 }

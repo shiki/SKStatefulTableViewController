@@ -10,7 +10,6 @@
 		4C27C04369ECB7D82D8FE360 /* DMLoadMoreErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C27CB8B490378F685699D80 /* DMLoadMoreErrorViewController.m */; };
 		4C27CBD56D9137D457A1E4A0 /* DMEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C27C529FC3357F65F6A168D /* DMEmptyViewController.m */; };
 		4C27CF3EEAB38D883A9231A2 /* DMNoPullToRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C27C6710410532FC317C16D /* DMNoPullToRefreshViewController.m */; };
-		577B2903183B91FF008ACE03 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 57F8835D181CA94400505E94 /* Main.storyboard */; };
 		57E5EB81181CC67A00BCA7BC /* SKStatefulTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5EB80181CC67A00BCA7BC /* SKStatefulTableViewController.m */; };
 		57E5EB84181CD24D00BCA7BC /* DMBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5EB83181CD24D00BCA7BC /* DMBasicViewController.m */; };
 		57E5EB86181D3D6900BCA7BC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57E5EB85181D3D6900BCA7BC /* CFNetwork.framework */; };
@@ -51,7 +50,6 @@
 		57F88359181CA94400505E94 /* Demo-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Demo-Prefix.pch"; sourceTree = "<group>"; };
 		57F8835A181CA94400505E94 /* DMAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DMAppDelegate.h; sourceTree = "<group>"; };
 		57F8835B181CA94400505E94 /* DMAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DMAppDelegate.m; sourceTree = "<group>"; };
-		57F8835E181CA94400505E94 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		57F88360181CA94400505E94 /* DMMasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DMMasterViewController.h; sourceTree = "<group>"; };
 		57F88361181CA94400505E94 /* DMMasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DMMasterViewController.m; sourceTree = "<group>"; };
 		57F88366181CA94400505E94 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
@@ -119,7 +117,6 @@
 			isa = PBXGroup;
 			children = (
 				57F88366181CA94400505E94 /* Images.xcassets */,
-				57F8835D181CA94400505E94 /* Main.storyboard */,
 				57F8835A181CA94400505E94 /* DMAppDelegate.h */,
 				57F8835B181CA94400505E94 /* DMAppDelegate.m */,
 				57E5EB82181CD24D00BCA7BC /* DMBasicViewController.h */,
@@ -177,7 +174,7 @@
 			isa = PBXProject;
 			attributes = {
 				CLASSPREFIX = DM;
-				LastUpgradeCheck = 0500;
+				LastUpgradeCheck = 0630;
 				ORGANIZATIONNAME = Shiki;
 			};
 			buildConfigurationList = 57F88343181CA94400505E94 /* Build configuration list for PBXProject "Demo" */;
@@ -203,7 +200,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				577B2903183B91FF008ACE03 /* Main.storyboard in Resources */,
 				57F88367181CA94400505E94 /* Images.xcassets in Resources */,
 				57F88356181CA94400505E94 /* InfoPlist.strings in Resources */,
 			);
@@ -239,14 +235,6 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		57F8835D181CA94400505E94 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				57F8835E181CA94400505E94 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
@@ -254,7 +242,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -283,7 +270,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "SKTVC Demo";
@@ -295,7 +282,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -318,7 +304,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_NAME = "SKTVC Demo";
 				SDKROOT = iphoneos;
