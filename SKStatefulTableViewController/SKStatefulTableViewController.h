@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Shiki. All rights reserved.
 //
 
-
 #import <Foundation/Foundation.h>
 
 typedef enum {
@@ -27,23 +26,29 @@ typedef enum {
 @optional
 
 - (void)statefulTableViewWillBeginInitialLoad:(SKStatefulTableViewController *)tableView
-                                   completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion;
-- (void)statefulTableViewWillBeginLoadingFromPullToRefresh:(SKStatefulTableViewController *)tableView
-                                                completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion;
+                                   completion:
+                                       (void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion;
+- (void)statefulTableViewWillBeginLoadingFromPullToRefresh:
+            (SKStatefulTableViewController *)
+                tableView completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion;
 - (void)statefulTableViewWillBeginLoadingMore:(SKStatefulTableViewController *)tableView
-                                   completion:(void (^)(BOOL canLoadMore, NSError *errorOrNil, BOOL showErrorView))completion;
+                                   completion:(void (^)(BOOL canLoadMore, NSError *errorOrNil,
+                                                        BOOL showErrorView))completion;
 
 - (UIView *)statefulTableViewViewForInitialLoad:(SKStatefulTableViewController *)tableView;
 // TODO rename since this is reused for pull to refresh as well
-- (UIView *)statefulTableView:(SKStatefulTableViewController *)tableView viewForEmptyInitialLoadWithError:(NSError *)errorOrNil;
-- (UIView *)statefulTableView:(SKStatefulTableViewController *)tableView viewForLoadMoreWithError:(NSError *)errorOrNil;
+- (UIView *)statefulTableView:(SKStatefulTableViewController *)tableView
+    viewForEmptyInitialLoadWithError:(NSError *)errorOrNil;
+- (UIView *)statefulTableView:(SKStatefulTableViewController *)tableView
+     viewForLoadMoreWithError:(NSError *)errorOrNil;
 
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-@interface SKStatefulTableViewController : UIViewController <SKStatefulTableViewControllerDelegate,
-  UITableViewDelegate, UITableViewDataSource, UIScrollViewDelegate>
+@interface SKStatefulTableViewController
+    : UIViewController <SKStatefulTableViewControllerDelegate, UITableViewDelegate,
+                        UITableViewDataSource, UIScrollViewDelegate>
 
 @property (weak, nonatomic) id<SKStatefulTableViewControllerDelegate> statefulDelegate;
 
@@ -71,7 +76,9 @@ typedef enum {
 - (BOOL)triggerPullToRefresh;
 - (void)setHasFinishedLoadingFromPullToRefresh:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil;
 - (void)triggerLoadMore;
-- (void)setHasFinishedLoadingMore:(BOOL)canLoadMore withError:(NSError *)errorOrNil showErrorView:(BOOL)showErrorView;
+- (void)setHasFinishedLoadingMore:(BOOL)canLoadMore
+                        withError:(NSError *)errorOrNil
+                    showErrorView:(BOOL)showErrorView;
 
 /**
  A convenience method for resetting the statefulState if self is currently in

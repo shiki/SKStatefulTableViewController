@@ -19,15 +19,17 @@
 }
 
 - (void)statefulTableViewWillBeginInitialLoad:(SKStatefulTableViewController *)tableView
-                                   completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
+                                   completion:(void (^)(BOOL tableIsEmpty,
+                                                        NSError *errorOrNil))completion {
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
     [self addItems:10 insertFromTop:NO];
     completion(self.items.count == 0, nil);
   });
 }
 
-- (void)statefulTableViewWillBeginLoadingFromPullToRefresh:(SKStatefulTableViewController *)tableView
-                                                completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
+- (void)statefulTableViewWillBeginLoadingFromPullToRefresh:
+            (SKStatefulTableViewController *)
+                tableView completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
     [self addItems:5 insertFromTop:YES];
     completion(self.items.count == 0, nil);
@@ -35,15 +37,18 @@
 }
 
 - (void)statefulTableViewWillBeginLoadingMore:(SKStatefulTableViewController *)tableView
-                                   completion:(void (^)(BOOL canLoadMore, NSError *errorOrNil, BOOL showErrorView))completion {
+                                   completion:(void (^)(BOOL canLoadMore, NSError *errorOrNil,
+                                                        BOOL showErrorView))completion {
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
     [self addItems:10 insertFromTop:NO];
     completion(self.items.count < 100, nil, NO);
   });
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"noreuse"];
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  UITableViewCell *cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault
+                                                 reuseIdentifier:@"noreuse"];
   cell.textLabel.text = self.items[(NSUInteger)indexPath.row];
   return cell;
 }
@@ -63,7 +68,7 @@
     NSString *item = [NSDateFormatter localizedStringFromDate:[NSDate date]
                                                     dateStyle:NSDateFormatterShortStyle
                                                     timeStyle:NSDateFormatterShortStyle];
-    item = [NSString stringWithFormat:@"#%i %@", _items.count, item];
+    item = [NSString stringWithFormat:@"#%lu %@", _items.count, item];
 
     if (insertFromTop)
       [_items insertObject:item atIndex:0];

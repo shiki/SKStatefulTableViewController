@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Shiki. All rights reserved.
 //
 
-
 #import "SKStatefulTableViewController.h"
 
 typedef enum {
@@ -59,8 +58,9 @@ typedef enum {
 }
 
 - (void)dealloc {
-  [NSNotificationCenter.defaultCenter
-    removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+  [NSNotificationCenter.defaultCenter removeObserver:self
+                                                name:UIApplicationDidBecomeActiveNotification
+                                              object:nil];
 }
 
 - (void)viewDidLoad {
@@ -69,12 +69,10 @@ typedef enum {
   UITableView *tableView = self.tableView;
   if (!tableView) {
     tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    tableView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
-      | UIViewAutoresizingFlexibleLeftMargin
-      | UIViewAutoresizingFlexibleWidth
-      | UIViewAutoresizingFlexibleRightMargin
-      | UIViewAutoresizingFlexibleBottomMargin
-      | UIViewAutoresizingFlexibleHeight;
+    tableView.autoresizingMask =
+        UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin |
+        UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin |
+        UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight;
   }
   tableView.dataSource = self;
   tableView.delegate = self;
@@ -92,7 +90,8 @@ typedef enum {
     UITableViewController *tableViewController = [[UITableViewController alloc] init];
     tableViewController.tableView = tableView;
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
-    [refreshControl addTarget:self action:@selector(refreshControlValueChanged:)
+    [refreshControl addTarget:self
+                       action:@selector(refreshControlValueChanged:)
              forControlEvents:UIControlEventValueChanged];
     tableViewController.refreshControl = refreshControl;
     // Move to the bottom so it doesn't cover the cell views (UITableViewWrapperView)
@@ -103,18 +102,17 @@ typedef enum {
   UIView *staticContentView = [[UIView alloc] initWithFrame:self.tableView.bounds];
   staticContentView.hidden = YES;
   staticContentView.backgroundColor = [UIColor whiteColor];
-  staticContentView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin
-    | UIViewAutoresizingFlexibleLeftMargin
-    | UIViewAutoresizingFlexibleWidth
-    | UIViewAutoresizingFlexibleRightMargin
-    | UIViewAutoresizingFlexibleBottomMargin
-    | UIViewAutoresizingFlexibleHeight;
+  staticContentView.autoresizingMask =
+      UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin |
+      UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin |
+      UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight;
   [tableView addSubview:staticContentView];
   self.staticContainerView = staticContentView;
 
-  [NSNotificationCenter.defaultCenter
-    addObserver:self selector:@selector(applicationDidBecomeActive:)
-           name:UIApplicationDidBecomeActiveNotification object:nil];
+  [NSNotificationCenter.defaultCenter addObserver:self
+                                         selector:@selector(applicationDidBecomeActive:)
+                                             name:UIApplicationDidBecomeActiveNotification
+                                           object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -134,7 +132,8 @@ typedef enum {
   [self setStatefulState:state updateViewMode:YES error:error];
 }
 
-- (void)setStatefulState:(SKStatefulTableViewControllerState)state updateViewMode:(BOOL)updateViewMode
+- (void)setStatefulState:(SKStatefulTableViewControllerState)state
+          updateViewMode:(BOOL)updateViewMode
                    error:(NSError *)error {
   _statefulState = state;
 
@@ -155,14 +154,14 @@ typedef enum {
   if (updateViewMode) {
     SKStatefulTableViewControllerViewMode viewMode;
     switch (state) {
-      case SKStatefulTableViewControllerStateInitialLoading:
-      case SKStatefulTableViewControllerStateEmptyOrInitialLoadError:
-        viewMode = SKStatefulTableViewControllerViewModeStatic;
-        break;
-      case SKStatefulTableViewControllerStateInitialLoadingTableView:
-      default:
-        viewMode = SKStatefulTableViewControllerViewModeTable;
-        break;
+    case SKStatefulTableViewControllerStateInitialLoading:
+    case SKStatefulTableViewControllerStateEmptyOrInitialLoadError:
+      viewMode = SKStatefulTableViewControllerViewModeStatic;
+      break;
+    case SKStatefulTableViewControllerStateInitialLoadingTableView:
+    default:
+      viewMode = SKStatefulTableViewControllerViewModeTable;
+      break;
     }
 
     [self setViewMode:viewMode];
@@ -186,25 +185,31 @@ typedef enum {
     [self setStatefulState:SKStatefulTableViewControllerStateInitialLoading];
 
   __weak typeof(self) wSelf = self;
-  if ([self.statefulDelegate respondsToSelector:@selector(statefulTableViewWillBeginInitialLoad:completion:)]) {
-    [self.statefulDelegate statefulTableViewWillBeginInitialLoad:self completion:^(BOOL tableIsEmpty, NSError *errorOrNil) {
-      [wSelf setHasFinishedInitialLoad:tableIsEmpty withError:errorOrNil];
-    }];
+  if ([self.statefulDelegate
+          respondsToSelector:@selector(statefulTableViewWillBeginInitialLoad:completion:)]) {
+    [self.statefulDelegate
+        statefulTableViewWillBeginInitialLoad:self
+                                   completion:^(BOOL tableIsEmpty, NSError *errorOrNil) {
+                                     [wSelf setHasFinishedInitialLoad:tableIsEmpty
+                                                            withError:errorOrNil];
+                                   }];
   }
 
   return YES;
 }
 
 - (void)setHasFinishedInitialLoad:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil {
-  if (self.statefulState != SKStatefulTableViewControllerStateInitialLoading
-      && self.statefulState != SKStatefulTableViewControllerStateInitialLoadingTableView) {
+  if (self.statefulState != SKStatefulTableViewControllerStateInitialLoading &&
+      self.statefulState != SKStatefulTableViewControllerStateInitialLoadingTableView) {
     return;
   }
 
-  // We will only show the error page if the table is empty or there is an error and the table is empty.
+  // We will only show the error page if the table is empty or there is an error and the table is
+  // empty.
   if (tableIsEmpty) {
     [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError
-            updateViewMode:YES error:errorOrNil];
+            updateViewMode:YES
+                     error:errorOrNil];
   } else {
     [self setStatefulState:SKStatefulTableViewControllerStateIdle];
   }
@@ -215,7 +220,7 @@ typedef enum {
     return [self.statefulDelegate statefulTableViewViewForInitialLoad:self];
   } else {
     UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc]
-      initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
     activityIndicatorView.frame = ({
       CGRect f = activityIndicatorView.frame;
       f.origin.x = self.staticContainerView.frame.size.width * 0.5f - f.size.width * 0.5f;
@@ -228,14 +233,19 @@ typedef enum {
 }
 
 - (UIView *)viewForEmptyInitialLoadWithError:(NSError *)errorOrNil {
-  if ([self.statefulDelegate respondsToSelector:@selector(statefulTableView:viewForEmptyInitialLoadWithError:)]) {
-    return [self.statefulDelegate statefulTableView:self viewForEmptyInitialLoadWithError:errorOrNil];
+  if ([self.statefulDelegate
+          respondsToSelector:@selector(statefulTableView:viewForEmptyInitialLoadWithError:)]) {
+    return
+        [self.statefulDelegate statefulTableView:self viewForEmptyInitialLoadWithError:errorOrNil];
   } else {
-    UIView *container = [[UIView alloc] initWithFrame:({
-      CGRect f = CGRectMake(0.f, 0.f, self.staticContainerView.bounds.size.width, 120.f);
-      f.origin.y = self.staticContainerView.bounds.size.height * 0.5f - f.size.height * 0.5f;
-      f;
-    })];
+    UIView *container =
+        [[UIView alloc] initWithFrame:({
+                          CGRect f = CGRectMake(0.f, 0.f,
+                                                self.staticContainerView.bounds.size.width, 120.f);
+                          f.origin.y = self.staticContainerView.bounds.size.height * 0.5f -
+                                       f.size.height * 0.5f;
+                          f;
+                        })];
 
     UILabel *label = [[UILabel alloc] init];
     label.textAlignment = NSTextAlignmentCenter;
@@ -251,7 +261,9 @@ typedef enum {
     if (errorOrNil) {
       UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
       [button setTitle:@"Try Again" forState:UIControlStateNormal];
-      [button addTarget:self action:@selector(triggerInitialLoad) forControlEvents:UIControlEventTouchUpInside];
+      [button addTarget:self
+                    action:@selector(triggerInitialLoad)
+          forControlEvents:UIControlEventTouchUpInside];
       button.frame = ({
         CGRect f = CGRectMake(0.f, 0.f, 130.f, 32.f);
         f.origin.x = container.bounds.size.width * 0.5f - f.size.width * 0.5f;
@@ -269,8 +281,8 @@ typedef enum {
 #pragma mark - Pull To Refresh
 
 - (void)refreshControlValueChanged:(id)sender {
-  if (self.statefulState != SKStatefulTableViewControllerStateLoadingFromPullToRefresh
-      && !self.stateIsInitialLoading) {
+  if (self.statefulState != SKStatefulTableViewControllerStateLoadingFromPullToRefresh &&
+      !self.stateIsInitialLoading) {
     if (![self triggerPullToRefresh]) {
       [self.refreshControl endRefreshing];
     }
@@ -282,12 +294,16 @@ typedef enum {
     return NO;
 
   // We don't want to change the view mode since pulling may come from the static view mode as well.
-  [self setStatefulState:SKStatefulTableViewControllerStateLoadingFromPullToRefresh updateViewMode:NO error:nil];
+  [self setStatefulState:SKStatefulTableViewControllerStateLoadingFromPullToRefresh
+          updateViewMode:NO
+                   error:nil];
 
   __weak typeof(self) wSelf = self;
-  if ([self.statefulDelegate respondsToSelector:@selector(statefulTableViewWillBeginLoadingFromPullToRefresh:completion:)]) {
-    [self.statefulDelegate statefulTableViewWillBeginLoadingFromPullToRefresh:self
-                                                                   completion:^(BOOL tableIsEmpty, NSError *errorOrNil) {
+  if ([self.statefulDelegate
+          respondsToSelector:@selector(statefulTableViewWillBeginLoadingFromPullToRefresh:
+                                                                               completion:)]) {
+    [self.statefulDelegate statefulTableViewWillBeginLoadingFromPullToRefresh:
+                               self completion:^(BOOL tableIsEmpty, NSError *errorOrNil) {
       [wSelf setHasFinishedLoadingFromPullToRefresh:tableIsEmpty withError:errorOrNil];
     }];
   }
@@ -302,9 +318,11 @@ typedef enum {
 
   [self.refreshControl endRefreshing];
 
-  // We will only show the error page if the table is empty or there is an error and the table is empty.
+  // We will only show the error page if the table is empty or there is an error and the table is
+  // empty.
   if (tableIsEmpty) {
-    [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError updateViewMode:YES
+    [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError
+            updateViewMode:YES
                      error:errorOrNil];
   } else {
     [self setStatefulState:SKStatefulTableViewControllerStateIdle];
@@ -325,12 +343,17 @@ typedef enum {
   [self setStatefulState:SKStatefulTableViewControllerStateLoadingMore];
 
   __weak typeof(self) wSelf = self;
-  if ([self.statefulDelegate respondsToSelector:@selector(statefulTableViewWillBeginLoadingMore:completion:)]) {
-    [self.statefulDelegate statefulTableViewWillBeginLoadingMore:self completion:^(BOOL canLoadMore,
-      NSError *errorOrNil, BOOL showErrorView) {
+  if ([self.statefulDelegate
+          respondsToSelector:@selector(statefulTableViewWillBeginLoadingMore:completion:)]) {
+    [self.statefulDelegate
+        statefulTableViewWillBeginLoadingMore:self
+                                   completion:^(BOOL canLoadMore, NSError *errorOrNil,
+                                                BOOL showErrorView) {
 
-      [wSelf setHasFinishedLoadingMore:canLoadMore withError:errorOrNil showErrorView:showErrorView];
-    }];
+                                     [wSelf setHasFinishedLoadingMore:canLoadMore
+                                                            withError:errorOrNil
+                                                        showErrorView:showErrorView];
+                                   }];
   }
 }
 
@@ -350,15 +373,16 @@ typedef enum {
 
 - (void)triggerLoadMoreIfApplicable:(UIScrollView *)scrollView {
   if (self.watchForLoadMore && !self.loadMoreViewIsErrorView) {
-    CGFloat scrollPosition = scrollView.contentSize.height - scrollView.frame.size.height
-      - scrollView.contentOffset.y;
+    CGFloat scrollPosition =
+        scrollView.contentSize.height - scrollView.frame.size.height - scrollView.contentOffset.y;
     if (scrollPosition < self.loadMoreTriggerThreshold) {
       [self triggerLoadMore];
     }
   }
 }
 
-- (void)setHasFinishedLoadingMore:(BOOL)canLoadMore withError:(NSError *)errorOrNil
+- (void)setHasFinishedLoadingMore:(BOOL)canLoadMore
+                        withError:(NSError *)errorOrNil
                     showErrorView:(BOOL)showErrorView {
   if (self.statefulState != SKStatefulTableViewControllerStateLoadingMore)
     return;
@@ -372,7 +396,8 @@ typedef enum {
 
 - (void)updateLoadMoreView {
   if (self.watchForLoadMore) {
-    UIView *loadMoreView = [self viewForLoadingMoreWithError:self.loadMoreViewIsErrorView ? self.lastLoadMoreError : nil];
+    UIView *loadMoreView = [self
+        viewForLoadingMoreWithError:self.loadMoreViewIsErrorView ? self.lastLoadMoreError : nil];
     self.tableView.tableFooterView = loadMoreView;
   } else {
     self.tableView.tableFooterView = [[UIView alloc] init];
@@ -380,11 +405,12 @@ typedef enum {
 }
 
 - (UIView *)viewForLoadingMoreWithError:(NSError *)error {
-  if ([self.statefulDelegate respondsToSelector:@selector(statefulTableView:viewForLoadMoreWithError:)]) {
+  if ([self.statefulDelegate
+          respondsToSelector:@selector(statefulTableView:viewForLoadMoreWithError:)]) {
     return [self.statefulDelegate statefulTableView:self viewForLoadMoreWithError:error];
   } else {
-    UIView *container = [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f,
-      self.tableView.bounds.size.width, 44.f)];
+    UIView *container =
+        [[UIView alloc] initWithFrame:CGRectMake(0.f, 0.f, self.tableView.bounds.size.width, 44.f)];
     if (error) {
       UILabel *label = [[UILabel alloc] init];
       label.text = error.localizedDescription;
@@ -400,7 +426,9 @@ typedef enum {
 
       UIButton *button = [UIButton buttonWithType:UIButtonTypeRoundedRect];
       [button setTitle:@"Try Again" forState:UIControlStateNormal];
-      [button addTarget:self action:@selector(triggerLoadMore) forControlEvents:UIControlEventTouchUpInside];
+      [button addTarget:self
+                    action:@selector(triggerLoadMore)
+          forControlEvents:UIControlEventTouchUpInside];
       button.frame = ({
         CGRect f = CGRectMake(0.f, 0.f, 130.f, container.bounds.size.height);
         f.origin.x = container.bounds.size.width - f.size.width - 5.f;
@@ -410,7 +438,7 @@ typedef enum {
       [container addSubview:button];
     } else {
       UIActivityIndicatorView *activityIndicatorView = [[UIActivityIndicatorView alloc]
-        initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
+          initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleGray];
       activityIndicatorView.frame = ({
         CGRect f = activityIndicatorView.frame;
         f.origin.x = container.frame.size.width * 0.5f - f.size.width * 0.5f;
@@ -428,15 +456,17 @@ typedef enum {
 #pragma mark - Utils
 
 - (void)updateIdleOrEmptyOrInitialLoadState:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil {
-  if (self.statefulState != SKStatefulTableViewControllerStateIdle
-    && self.statefulState != SKStatefulTableViewControllerStateEmptyOrInitialLoadError) {
+  if (self.statefulState != SKStatefulTableViewControllerStateIdle &&
+      self.statefulState != SKStatefulTableViewControllerStateEmptyOrInitialLoadError) {
     return;
   }
 
-  // We will only show the error page if the table is empty or there is an error and the table is empty.
+  // We will only show the error page if the table is empty or there is an error and the table is
+  // empty.
   if (tableIsEmpty) {
     [self setStatefulState:SKStatefulTableViewControllerStateEmptyOrInitialLoadError
-            updateViewMode:YES error:errorOrNil];
+            updateViewMode:YES
+                     error:errorOrNil];
   } else {
     [self setStatefulState:SKStatefulTableViewControllerStateIdle];
   }
@@ -461,15 +491,15 @@ typedef enum {
 }
 
 - (BOOL)stateIsLoading {
-  return self.statefulState == SKStatefulTableViewControllerStateInitialLoading
-    || self.statefulState == SKStatefulTableViewControllerStateInitialLoadingTableView
-    || self.statefulState == SKStatefulTableViewControllerStateLoadingFromPullToRefresh
-    || self.statefulState == SKStatefulTableViewControllerStateLoadingMore;
+  return self.statefulState == SKStatefulTableViewControllerStateInitialLoading ||
+         self.statefulState == SKStatefulTableViewControllerStateInitialLoadingTableView ||
+         self.statefulState == SKStatefulTableViewControllerStateLoadingFromPullToRefresh ||
+         self.statefulState == SKStatefulTableViewControllerStateLoadingMore;
 }
 
 - (BOOL)stateIsInitialLoading {
-  return self.statefulState == SKStatefulTableViewControllerStateInitialLoading
-    || self.statefulState == SKStatefulTableViewControllerStateInitialLoadingTableView;
+  return self.statefulState == SKStatefulTableViewControllerStateInitialLoading ||
+         self.statefulState == SKStatefulTableViewControllerStateInitialLoadingTableView;
 }
 
 - (void)fixRefreshControlState {
@@ -484,7 +514,8 @@ typedef enum {
   return 0;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   return nil;
 }
 

@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version = '0.0.11'
   s.summary = ''
   s.author = {
-    'Shiki' => 'bj@basanes.net'
+    'Shiki' => 'jayson@basanes.net'
   }
   s.source = {
     :git => 'https://github.com/shiki/SKStatefulTableViewController.git',

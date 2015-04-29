@@ -24,12 +24,14 @@
 }
 
 - (void)statefulTableViewWillBeginInitialLoad:(SKStatefulTableViewController *)tableView
-                                   completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
+                                   completion:(void (^)(BOOL tableIsEmpty,
+                                                        NSError *errorOrNil))completion {
   [self loadItemsOrSendError:completion messageIfError:@"Error on initial load."];
 }
 
-- (void)statefulTableViewWillBeginLoadingFromPullToRefresh:(SKStatefulTableViewController *)tableView
-                                                completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
+- (void)statefulTableViewWillBeginLoadingFromPullToRefresh:
+            (SKStatefulTableViewController *)
+                tableView completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
   [self loadItemsOrSendError:completion messageIfError:@"Error from pull-to-refresh."];
 }
 
@@ -39,9 +41,9 @@
     self.retriesCount++;
 
     if (self.retriesCount % 2 != 0) {
-      NSError *error = [NSError errorWithDomain:@"domain" code:100 userInfo:@{
-        NSLocalizedDescriptionKey: message
-      }];
+      NSError *error = [NSError errorWithDomain:@"domain"
+                                           code:100
+                                       userInfo:@{NSLocalizedDescriptionKey: message}];
       [self.items removeAllObjects];
       [self.tableView reloadData];
       completion(self.items.count == 0, error);

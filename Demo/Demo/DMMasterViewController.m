@@ -29,7 +29,7 @@
   [super viewDidLoad];
 
   _objects = [NSMutableArray arrayWithObjects:@"Basic", @"Initial Error", @"Empty",
-      @"Load More Error", @"No Pull To Refresh", nil];
+                                              @"Load More Error", @"No Pull To Refresh", nil];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -39,8 +39,10 @@
   return _objects.count;
 }
 
-- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-  UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+- (UITableViewCell *)tableView:(UITableView *)tableView
+         cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+  UITableViewCell *cell =
+      [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
 
   NSString *object = _objects[(NSUInteger)indexPath.row];
   cell.textLabel.text = object;

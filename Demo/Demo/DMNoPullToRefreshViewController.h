@@ -6,12 +6,9 @@
 //  Copyright (c) 2013 Shiki. All rights reserved.
 //
 
-
 #import <Foundation/Foundation.h>
 #import "DMBasicViewController.h"
 
 @interface DMNoPullToRefreshViewController : DMBasicViewController
-
-
 
 @end

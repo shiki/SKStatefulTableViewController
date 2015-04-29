@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Shiki. All rights reserved.
 //
 
-
 #import "DMNoPullToRefreshViewController.h"
 
 @implementation DMNoPullToRefreshViewController

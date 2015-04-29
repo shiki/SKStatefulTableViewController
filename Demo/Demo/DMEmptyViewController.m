@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Shiki. All rights reserved.
 //
 
-
 #import "DMEmptyViewController.h"
 
 @interface DMEmptyViewController ()
@@ -25,12 +24,14 @@
 }
 
 - (void)statefulTableViewWillBeginInitialLoad:(SKStatefulTableViewController *)tableView
-                                   completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
+                                   completion:(void (^)(BOOL tableIsEmpty,
+                                                        NSError *errorOrNil))completion {
   [self loadItemsOrSetEmpty:completion];
 }
 
-- (void)statefulTableViewWillBeginLoadingFromPullToRefresh:(SKStatefulTableViewController *)tableView
-                                                completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
+- (void)statefulTableViewWillBeginLoadingFromPullToRefresh:
+            (SKStatefulTableViewController *)
+                tableView completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
   [self loadItemsOrSetEmpty:completion];
 }
 
@@ -48,6 +49,5 @@
     }
   });
 }
-
 
 @end
