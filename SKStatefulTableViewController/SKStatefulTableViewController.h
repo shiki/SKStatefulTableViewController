@@ -47,12 +47,10 @@ typedef enum {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 @interface SKStatefulTableViewController
-    : UIViewController <SKStatefulTableViewControllerDelegate, UITableViewDelegate,
-                        UITableViewDataSource, UIScrollViewDelegate>
+    : UITableViewController <SKStatefulTableViewControllerDelegate>
 
 @property (weak, nonatomic) id<SKStatefulTableViewControllerDelegate> statefulDelegate;
 
-@property (readonly, strong, nonatomic) UITableView *tableView;
 @property (readonly, strong, nonatomic) UIView *staticContainerView;
 
 @property (nonatomic) SKStatefulTableViewControllerState statefulState;
@@ -60,7 +58,6 @@ typedef enum {
 // Enable/disable pull-to-refresh. This will only work if this is set before -viewDidLoad gets
 // launched.
 @property (nonatomic) BOOL canPullToRefresh;
-@property (strong, readonly, nonatomic) UIRefreshControl *refreshControl;
 
 @property (nonatomic) CGFloat loadMoreTriggerThreshold;
 @property (nonatomic) BOOL canLoadMore;
@@ -86,12 +83,6 @@ typedef enum {
  and the table data source has changed without going through pull-to-refresh or initial-load.
  */
 - (void)updateIdleOrEmptyOrInitialLoadState:(BOOL)tableIsEmpty withError:(NSError *)errorOrNil;
-
-/**
- Reset the status of `-refreshControl` based on the current state. Subclasses may override this if
- they're using a custom refresh control.
- */
-- (void)fixRefreshControlState;
 
 - (BOOL)stateIsLoading;
 - (BOOL)stateIsInitialLoading;

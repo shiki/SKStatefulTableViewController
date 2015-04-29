@@ -17,9 +17,7 @@ typedef enum {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 @interface SKStatefulTableViewController ()
 
-@property (readwrite, strong, nonatomic) UITableView *tableView;
 @property (readwrite, strong, nonatomic) UIView *staticContainerView;
-@property (strong, readwrite, nonatomic) UIRefreshControl *refreshControl;
 
 @property (nonatomic) BOOL watchForLoadMore;
 @property (nonatomic) BOOL loadMoreViewIsErrorView;
@@ -57,45 +55,17 @@ typedef enum {
   self.canPullToRefresh = YES;
 }
 
-- (void)dealloc {
-  [NSNotificationCenter.defaultCenter removeObserver:self
-                                                name:UIApplicationDidBecomeActiveNotification
-                                              object:nil];
-}
-
 - (void)viewDidLoad {
   [super viewDidLoad];
 
-  UITableView *tableView = self.tableView;
-  if (!tableView) {
-    tableView = [[UITableView alloc] initWithFrame:self.view.bounds style:UITableViewStylePlain];
-    tableView.autoresizingMask =
-        UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin |
-        UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin |
-        UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight;
-  }
-  tableView.dataSource = self;
-  tableView.delegate = self;
-
-  // Insert to make sure it is the first in the view heirarchy so we can benefit from the iOS7
-  // auto-setting of content insets.
-  [self.view insertSubview:tableView atIndex:0];
-  self.tableView = tableView;
-
   self.lastSeparatorStyle = self.tableView.separatorStyle;
 
+  // Initialize pull to refresh control
   if (self.canPullToRefresh) {
-    // Add UIRefreshControl without the need for self to be a UITableViewController.
-    // http://stackoverflow.com/questions/12497940/uirefreshcontrol-without-uitableviewcontroller
-    UITableViewController *tableViewController = [[UITableViewController alloc] init];
-    tableViewController.tableView = tableView;
     UIRefreshControl *refreshControl = [[UIRefreshControl alloc] init];
     [refreshControl addTarget:self
                        action:@selector(refreshControlValueChanged:)
              forControlEvents:UIControlEventValueChanged];
-    tableViewController.refreshControl = refreshControl;
-    // Move to the bottom so it doesn't cover the cell views (UITableViewWrapperView)
-    [refreshControl.superview insertSubview:refreshControl atIndex:0];
     self.refreshControl = refreshControl;
   }
 
@@ -106,22 +76,12 @@ typedef enum {
       UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin |
       UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleRightMargin |
       UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight;
-  [tableView addSubview:staticContentView];
+  [self.tableView addSubview:staticContentView];
   self.staticContainerView = staticContentView;
-
-  [NSNotificationCenter.defaultCenter addObserver:self
-                                         selector:@selector(applicationDidBecomeActive:)
-                                             name:UIApplicationDidBecomeActiveNotification
-                                           object:nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated {
   [super viewWillAppear:animated];
-  [self fixRefreshControlState];
-}
-
-- (void)applicationDidBecomeActive:(NSNotification *)notification {
-  [self fixRefreshControlState];
 }
 
 - (void)setStatefulState:(SKStatefulTableViewControllerState)state {
@@ -500,11 +460,6 @@ typedef enum {
 - (BOOL)stateIsInitialLoading {
   return self.statefulState == SKStatefulTableViewControllerStateInitialLoading ||
          self.statefulState == SKStatefulTableViewControllerStateInitialLoadingTableView;
-}
-
-- (void)fixRefreshControlState {
-  if (self.statefulState != SKStatefulTableViewControllerStateLoadingFromPullToRefresh)
-    [self.refreshControl endRefreshing];
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
