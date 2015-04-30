@@ -23,15 +23,15 @@
   self.retriesCount = 0;
 }
 
-- (void)statefulTableViewWillBeginInitialLoad:(SKStatefulTableViewController *)tableView
-                                   completion:(void (^)(BOOL tableIsEmpty,
-                                                        NSError *errorOrNil))completion {
+- (void)statefulTVCWillBeginInitialLoad:(SKStatefulTVC *)tvc
+                             completion:
+                                 (void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
   [self loadItemsOrSetEmpty:completion];
 }
 
-- (void)statefulTableViewWillBeginLoadingFromPullToRefresh:
-            (SKStatefulTableViewController *)
-                tableView completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
+- (void)statefulTVCWillBeginLoadingFromPullToRefresh:(SKStatefulTVC *)tvc
+                                          completion:(void (^)(BOOL tableIsEmpty,
+                                                               NSError *errorOrNil))completion {
   [self loadItemsOrSetEmpty:completion];
 }
 

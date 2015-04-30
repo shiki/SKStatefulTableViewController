@@ -18,27 +18,27 @@
   [self triggerInitialLoad];
 }
 
-- (void)statefulTableViewWillBeginInitialLoad:(SKStatefulTableViewController *)tableView
-                                   completion:(void (^)(BOOL tableIsEmpty,
-                                                        NSError *errorOrNil))completion {
+- (void)statefulTVCWillBeginInitialLoad:(SKStatefulTVC *)tvc
+                             completion:
+                                 (void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
     [self addItems:10 insertFromTop:NO];
     completion(self.items.count == 0, nil);
   });
 }
 
-- (void)statefulTableViewWillBeginLoadingFromPullToRefresh:
-            (SKStatefulTableViewController *)
-                tableView completion:(void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
+- (void)statefulTVCWillBeginLoadingFromPullToRefresh:(SKStatefulTVC *)tvc
+                                          completion:(void (^)(BOOL tableIsEmpty,
+                                                               NSError *errorOrNil))completion {
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
     [self addItems:5 insertFromTop:YES];
     completion(self.items.count == 0, nil);
   });
 }
 
-- (void)statefulTableViewWillBeginLoadingMore:(SKStatefulTableViewController *)tableView
-                                   completion:(void (^)(BOOL canLoadMore, NSError *errorOrNil,
-                                                        BOOL showErrorView))completion {
+- (void)statefulTVCWillBeginLoadingMore:(SKStatefulTVC *)tvc
+                             completion:(void (^)(BOOL canLoadMore, NSError *errorOrNil,
+                                                  BOOL showErrorView))completion {
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
     [self addItems:10 insertFromTop:NO];
     completion(self.items.count < 100, nil, NO);
@@ -68,7 +68,7 @@
     NSString *item = [NSDateFormatter localizedStringFromDate:[NSDate date]
                                                     dateStyle:NSDateFormatterShortStyle
                                                     timeStyle:NSDateFormatterShortStyle];
-    item = [NSString stringWithFormat:@"#%lu %@", _items.count, item];
+    item = [NSString stringWithFormat:@"#%lu %@", (unsigned long)_items.count, item];
 
     if (insertFromTop)
       [_items insertObject:item atIndex:0];

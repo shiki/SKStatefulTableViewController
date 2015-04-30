@@ -6,10 +6,10 @@
 //  Copyright (c) 2013 Shiki. All rights reserved.
 //
 
-#import "SKStatefulTableViewController.h"
-#import "SKStatefulTableViewController.h"
+#import "SKStatefulTVC.h"
+#import "SKStatefulTVC.h"
 
-@interface DMBasicViewController : SKStatefulTableViewController
+@interface DMBasicViewController : SKStatefulTVC
 
 @property (strong, nonatomic) NSMutableArray *items;
 
