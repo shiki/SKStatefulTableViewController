@@ -9,48 +9,51 @@
 #import <Foundation/Foundation.h>
 
 typedef enum {
-  SKStatefulTVCStateIdle = 0,
-  SKStatefulTVCStateInitialLoading,
-  SKStatefulTVCStateInitialLoadingTableView,
-  SKStatefulTVCStateEmptyOrInitialLoadError,
-  SKStatefulTVCStateLoadingFromPullToRefresh,
-  SKStatefulTVCStateLoadingMore
-} SKStatefulTVCState;
+  SKStatefulTableViewControllerStateIdle = 0,
+  SKStatefulTableViewControllerStateInitialLoading,
+  SKStatefulTableViewControllerStateInitialLoadingTableView,
+  SKStatefulTableViewControllerStateEmptyOrInitialLoadError,
+  SKStatefulTableViewControllerStateLoadingFromPullToRefresh,
+  SKStatefulTableViewControllerStateLoadingMore
+} SKStatefulTableViewControllerState;
 
-@class SKStatefulTVC;
+@class SKStatefulTableViewController;
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-@protocol SKStatefulTVCDelegate <NSObject>
+@protocol SKStatefulTableViewControllerDelegate <NSObject>
 
 @optional
 
-- (void)statefulTVCWillBeginInitialLoad:(SKStatefulTVC *)tvc
+- (void)statefulTableViewControllerWillBeginInitialLoad:(SKStatefulTableViewController *)tvc
                              completion:
                                  (void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion;
-- (void)statefulTVCWillBeginLoadingFromPullToRefresh:(SKStatefulTVC *)tvc
+- (void)statefulTableViewControllerWillBeginLoadingFromPullToRefresh:(SKStatefulTableViewController *)tvc
                                           completion:(void (^)(BOOL tableIsEmpty,
                                                                NSError *errorOrNil))completion;
-- (void)statefulTVCWillBeginLoadingMore:(SKStatefulTVC *)tvc
+- (void)statefulTableViewControllerWillBeginLoadingMore:(SKStatefulTableViewController *)tvc
                              completion:(void (^)(BOOL canLoadMore, NSError *errorOrNil,
                                                   BOOL showErrorView))completion;
 
-- (UIView *)statefulTVCViewForInitialLoad:(SKStatefulTVC *)tvc;
+- (UIView *)statefulTableViewControllerViewForInitialLoad:(SKStatefulTableViewController *)tvc;
 // TODO rename since this is reused for pull to refresh as well
-- (UIView *)statefulTVC:(SKStatefulTVC *)tvc viewForEmptyInitialLoadWithError:(NSError *)errorOrNil;
-- (UIView *)statefulTVC:(SKStatefulTVC *)tvc viewForLoadMoreWithError:(NSError *)errorOrNil;
+- (UIView *)statefulTableViewController:(SKStatefulTableViewController *)tvc
+    viewForEmptyInitialLoadWithError:(NSError *)errorOrNil;
+- (UIView *)statefulTableViewController:(SKStatefulTableViewController *)tvc
+    viewForLoadMoreWithError:(NSError *)errorOrNil;
 
 @end
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-@interface SKStatefulTVC : UITableViewController <SKStatefulTVCDelegate>
+@interface SKStatefulTableViewController
+    : UITableViewController <SKStatefulTableViewControllerDelegate>
 
-@property (weak, nonatomic) id<SKStatefulTVCDelegate> statefulDelegate;
+@property (weak, nonatomic) id<SKStatefulTableViewControllerDelegate> statefulDelegate;
 
 @property (readonly, strong, nonatomic) UIView *staticContainerView;
 
-@property (nonatomic) SKStatefulTVCState statefulState;
+@property (nonatomic) SKStatefulTableViewControllerState statefulState;
 
 // Enable/disable pull-to-refresh. This will only work if this is set before -viewDidLoad gets
 // launched.
@@ -62,7 +65,7 @@ typedef enum {
 
 - (void)onInit;
 
-- (void)setStatefulState:(SKStatefulTVCState)state withError:(NSError *)error;
+- (void)setStatefulState:(SKStatefulTableViewControllerState)state withError:(NSError *)error;
 
 - (BOOL)triggerInitialLoad;
 - (BOOL)triggerInitialLoadShowingTableView:(BOOL)showTableView;

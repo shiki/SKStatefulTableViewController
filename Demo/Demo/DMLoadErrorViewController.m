@@ -23,13 +23,13 @@
   self.retriesCount = 0;
 }
 
-- (void)statefulTVCWillBeginInitialLoad:(SKStatefulTVC *)tvc
+- (void)statefulTableViewControllerWillBeginInitialLoad:(SKStatefulTableViewController *)tvc
                              completion:
                                  (void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
   [self loadItemsOrSendError:completion messageIfError:@"Error on initial load."];
 }
 
-- (void)statefulTVCWillBeginLoadingFromPullToRefresh:(SKStatefulTVC *)tvc
+- (void)statefulTableViewControllerWillBeginLoadingFromPullToRefresh:(SKStatefulTableViewController *)tvc
                                           completion:(void (^)(BOOL tableIsEmpty,
                                                                NSError *errorOrNil))completion {
   [self loadItemsOrSendError:completion messageIfError:@"Error from pull-to-refresh."];

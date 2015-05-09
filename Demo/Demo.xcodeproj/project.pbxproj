@@ -10,7 +10,7 @@
 		4C27C04369ECB7D82D8FE360 /* DMLoadMoreErrorViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C27CB8B490378F685699D80 /* DMLoadMoreErrorViewController.m */; };
 		4C27CBD56D9137D457A1E4A0 /* DMEmptyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C27C529FC3357F65F6A168D /* DMEmptyViewController.m */; };
 		4C27CF3EEAB38D883A9231A2 /* DMNoPullToRefreshViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C27C6710410532FC317C16D /* DMNoPullToRefreshViewController.m */; };
-		57E5EB81181CC67A00BCA7BC /* SKStatefulTVC.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5EB80181CC67A00BCA7BC /* SKStatefulTVC.m */; };
+		57E5EB81181CC67A00BCA7BC /* SKStatefulTableViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5EB80181CC67A00BCA7BC /* SKStatefulTableViewController.m */; };
 		57E5EB84181CD24D00BCA7BC /* DMBasicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 57E5EB83181CD24D00BCA7BC /* DMBasicViewController.m */; };
 		57E5EB86181D3D6900BCA7BC /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57E5EB85181D3D6900BCA7BC /* CFNetwork.framework */; };
 		57E5EB88181D3D6F00BCA7BC /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 57E5EB87181D3D6F00BCA7BC /* QuartzCore.framework */; };
@@ -32,8 +32,8 @@
 		4C27C7C7545E499417641FE6 /* DMLoadMoreErrorViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMLoadMoreErrorViewController.h; sourceTree = "<group>"; };
 		4C27CAAFC526773B43E5213E /* DMNoPullToRefreshViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMNoPullToRefreshViewController.h; sourceTree = "<group>"; };
 		4C27CB8B490378F685699D80 /* DMLoadMoreErrorViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMLoadMoreErrorViewController.m; sourceTree = "<group>"; };
-		57E5EB7F181CC67A00BCA7BC /* SKStatefulTVC.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKStatefulTVC.h; sourceTree = "<group>"; };
-		57E5EB80181CC67A00BCA7BC /* SKStatefulTVC.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKStatefulTVC.m; sourceTree = "<group>"; };
+		57E5EB7F181CC67A00BCA7BC /* SKStatefulTableViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SKStatefulTableViewController.h; sourceTree = "<group>"; };
+		57E5EB80181CC67A00BCA7BC /* SKStatefulTableViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SKStatefulTableViewController.m; sourceTree = "<group>"; };
 		57E5EB82181CD24D00BCA7BC /* DMBasicViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DMBasicViewController.h; sourceTree = "<group>"; };
 		57E5EB83181CD24D00BCA7BC /* DMBasicViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DMBasicViewController.m; sourceTree = "<group>"; };
 		57E5EB85181D3D6900BCA7BC /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
@@ -75,8 +75,8 @@
 		57E5EB7E181CC67A00BCA7BC /* SKStatefulTableViewController */ = {
 			isa = PBXGroup;
 			children = (
-				57E5EB7F181CC67A00BCA7BC /* SKStatefulTVC.h */,
-				57E5EB80181CC67A00BCA7BC /* SKStatefulTVC.m */,
+				57E5EB7F181CC67A00BCA7BC /* SKStatefulTableViewController.h */,
+				57E5EB80181CC67A00BCA7BC /* SKStatefulTableViewController.m */,
 			);
 			name = SKStatefulTableViewController;
 			path = ../SKStatefulTableViewController;
@@ -212,7 +212,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				57E5EB81181CC67A00BCA7BC /* SKStatefulTVC.m in Sources */,
+				57E5EB81181CC67A00BCA7BC /* SKStatefulTableViewController.m in Sources */,
 				57F8835C181CA94400505E94 /* DMAppDelegate.m in Sources */,
 				57F88362181CA94400505E94 /* DMMasterViewController.m in Sources */,
 				57F88358181CA94400505E94 /* main.m in Sources */,
@@ -324,6 +324,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/Demo-Prefix.pch";
 				INFOPLIST_FILE = "Demo/Demo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -340,6 +341,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Demo/Demo-Prefix.pch";
 				INFOPLIST_FILE = "Demo/Demo-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

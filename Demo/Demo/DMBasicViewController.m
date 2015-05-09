@@ -18,7 +18,7 @@
   [self triggerInitialLoad];
 }
 
-- (void)statefulTVCWillBeginInitialLoad:(SKStatefulTVC *)tvc
+- (void)statefulTableViewControllerWillBeginInitialLoad:(SKStatefulTableViewController *)tvc
                              completion:
                                  (void (^)(BOOL tableIsEmpty, NSError *errorOrNil))completion {
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
@@ -27,7 +27,7 @@
   });
 }
 
-- (void)statefulTVCWillBeginLoadingFromPullToRefresh:(SKStatefulTVC *)tvc
+- (void)statefulTableViewControllerWillBeginLoadingFromPullToRefresh:(SKStatefulTableViewController *)tvc
                                           completion:(void (^)(BOOL tableIsEmpty,
                                                                NSError *errorOrNil))completion {
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
@@ -36,7 +36,7 @@
   });
 }
 
-- (void)statefulTVCWillBeginLoadingMore:(SKStatefulTVC *)tvc
+- (void)statefulTableViewControllerWillBeginLoadingMore:(SKStatefulTableViewController *)tvc
                              completion:(void (^)(BOOL canLoadMore, NSError *errorOrNil,
                                                   BOOL showErrorView))completion {
   dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 1 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
