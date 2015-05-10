@@ -12,6 +12,12 @@ SKStatefulTableViewController is a `UITableViewController` subclass that support
 
 The states can be disabled depending on your needs. The views used by the states can also be customized.
 
+## Installation
+
+Add this to your project using [Cocoapods](https://cocoapods.org).
+
+    pod "SKStatefulTableViewController", "~> 0.1"
+
 ## Customizing the state views
 
 _Work in progress_. Please see the Demo project on how to do this for now.
