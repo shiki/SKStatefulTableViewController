@@ -1,7 +1,9 @@
 Pod::Spec.new do |s|
   s.name    = 'SKStatefulTableViewController'
   s.version = '0.0.12'
-  s.summary = ''
+  s.license = 'MIT'
+  s.homepage = 'http://github.com/shiki/SKStatefulTableViewController'
+  s.summary = 'UITableviewController subclass that supports pull-to-refresh, load-more, initial-load, and empty states.'
   s.author = {
     'Shiki' => 'jayson@basanes.net'
   }
