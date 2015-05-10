@@ -9,7 +9,7 @@ Pod::Spec.new do |s|
   }
   s.source = {
     :git => 'https://github.com/shiki/SKStatefulTableViewController.git',
-    :tag => '0.0.12'
+    :tag => s.version.to_s
   }
   s.platform = :ios, "7.1"
   s.source_files = 'SKStatefulTableViewController/*.{h,m}'
