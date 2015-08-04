@@ -48,6 +48,13 @@ typedef enum {
   return self;
 }
 
+- (id)init {
+  if ((self = [super init])) {
+    [self onInit];
+  }
+  return self;
+}
+
 - (void)onInit {
   self.statefulDelegate = self;
   self.loadMoreTriggerThreshold = 64.f;
