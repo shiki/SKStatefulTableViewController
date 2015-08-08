@@ -48,6 +48,17 @@ typedef enum {
   return self;
 }
 
+- (instancetype)initWithStyle:(UITableViewStyle)style {
+  if ((self = [super initWithStyle:style])) {
+    // iOS 8 -initWithStyle calls -initWithNibName.
+    // iOS 9 -initWithStyle does not call -initWithNibName so we'll call -onInit here.
+    if ([UIDevice.currentDevice.systemVersion compare:@"9" options:NSNumericSearch] != NSOrderedAscending) {
+      [self onInit];
+    }
+  }
+  return self;
+}
+
 - (void)onInit {
   self.statefulDelegate = self;
   self.loadMoreTriggerThreshold = 64.f;
