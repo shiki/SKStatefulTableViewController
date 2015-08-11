@@ -64,6 +64,11 @@ typedef enum {
   self.loadMoreTriggerThreshold = 64.f;
   self.canLoadMore = YES;
   self.canPullToRefresh = YES;
+  self.shouldMonitorContentSize = NO;
+}
+
+- (void)dealloc {
+  [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 - (void)viewDidLoad {
@@ -89,6 +94,10 @@ typedef enum {
       UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight;
   [self.tableView addSubview:staticContentView];
   self.staticContainerView = staticContentView;
+
+  if (self.shouldMonitorContentSize) {
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(contentSizeCategoryDidChange:) name:UIContentSizeCategoryDidChangeNotification object:nil];
+  }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -478,6 +487,14 @@ typedef enum {
 - (UITableViewCell *)tableView:(UITableView *)tableView
          cellForRowAtIndexPath:(NSIndexPath *)indexPath {
   return nil;
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+#pragma mark - Notifications
+- (void)contentSizeCategoryDidChange:(NSNotification *)notification {
+  dispatch_async(dispatch_get_main_queue(), ^{
+    [self.tableView reloadData];
+  });
 }
 
 @end

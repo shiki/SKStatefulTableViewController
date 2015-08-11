@@ -63,6 +63,9 @@ typedef enum {
 @property (nonatomic) BOOL canLoadMore;
 @property (strong, nonatomic) NSError *lastLoadMoreError;
 
+// Should register for dynamic text changes
+@property (nonatomic) BOOL shouldMonitorContentSize;
+
 - (void)onInit;
 
 - (void)setStatefulState:(SKStatefulTableViewControllerState)state withError:(NSError *)error;
