@@ -255,6 +255,8 @@ typedef enum {
     if (![self triggerPullToRefresh]) {
       [self.refreshControl endRefreshing];
     }
+  } else {
+    [self.refreshControl endRefreshing];
   }
 }
 
